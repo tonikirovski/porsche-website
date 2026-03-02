@@ -259,3 +259,186 @@
     padding: 60px 20px;
   }
 }
+
+/* =========================
+   EXTRA TABLET + MOBILE POLISH
+   Paste at the very bottom
+   ========================= */
+
+/* ---------- TABLET (<= 1024px) ---------- */
+@media (max-width: 1024px) {
+  .section {
+    padding: 90px 50px;
+  }
+
+  /* HERO */
+  .hero {
+    height: 75vh;
+  }
+
+  .hero-overlay {
+    left: 50px;
+    bottom: 110px;
+    max-width: 520px;
+  }
+
+  .hero-overlay h1 {
+    font-size: 64px;
+    letter-spacing: 2px;
+  }
+
+  .hero-overlay p {
+    font-size: 18px;
+  }
+
+  /* SPLIT */
+  .split .text {
+    padding: 70px 50px;
+  }
+
+  .split h2 {
+    font-size: 38px;
+  }
+
+  .split p {
+    font-size: 17px;
+  }
+
+  /* PARALLAX */
+  .parallax {
+    height: 70vh;
+    background-attachment: scroll; /* iOS/Android performance fix */
+  }
+
+  .parallax h2 {
+    font-size: 42px;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  /* ABOUT / CTA */
+  .about h2,
+  .cta h2 {
+    font-size: 40px;
+  }
+
+  .about p {
+    font-size: 18px;
+  }
+
+  .cta button {
+    padding: 14px 34px;
+    font-size: 15px;
+  }
+}
+
+
+/* ---------- MOBILE (<= 600px) ---------- */
+@media (max-width: 600px) {
+  .section {
+    padding: 70px 18px;
+  }
+
+  /* HERO */
+  .hero {
+    height: 70vh;
+  }
+
+  .hero-overlay {
+    left: 18px;
+    right: 18px;
+    bottom: 70px;
+    max-width: none;
+  }
+
+  .hero-overlay h1 {
+    font-size: 40px;
+    letter-spacing: 1px;
+    line-height: 1.05;
+    word-break: break-word;
+  }
+
+  .hero-overlay p {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  /* ABOUT */
+  .about h2 {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+
+  .about p {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* SPLIT */
+  .split {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .split .image,
+  .split .text {
+    width: 100%;
+  }
+
+  .split .text {
+    padding: 44px 18px;
+  }
+
+  .split h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+
+  .split p {
+    font-size: 15px;
+  }
+
+  /* PARALLAX */
+  .parallax {
+    height: 60vh;
+    background-attachment: scroll; /* required on mobile */
+    background-position: center;
+  }
+
+  .parallax h2 {
+    font-size: 30px;
+    padding: 0 16px;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  /* CTA */
+  .cta h2 {
+    font-size: 32px;
+    margin-bottom: 18px;
+  }
+
+  .cta button {
+    width: 100%;
+    max-width: 420px;
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
+
+
+/* ---------- VERY SMALL PHONES (<= 360px) ---------- */
+@media (max-width: 360px) {
+  .hero-overlay h1 {
+    font-size: 34px;
+  }
+
+  .hero-overlay p {
+    font-size: 14px;
+  }
+
+  .about h2,
+  .cta h2 {
+    font-size: 28px;
+  }
+}

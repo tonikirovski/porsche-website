@@ -112,8 +112,8 @@ export const VARIANTS: Variant[] = [
           title: 'Capacities',
           specs: [
             { label: 'Luggage compartment volume (front)', value: '135 litres' },
-            { label: 'Open luggage compartment volume (behind front seats) (8-speed Porsche Doppelkupplung (PDK))', value: '373 l' },
-            { label: 'Open luggage compartment volume (behind front seats) (8-speed Porsche Doppelkupplung (PDK)) (Rear Seats)', value: '261 l' }
+            { label: 'Open luggage compartment volume (behind front seats)', value: '373 l' },
+            { label: 'Open luggage compartment volume (behind front seats)', value: '261 l' }
           ]
         }
       ]

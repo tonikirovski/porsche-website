@@ -1126,3 +1126,349 @@ hr {
   height: auto;
 }
 
+/* =========================
+   TABLET + MOBILE RESPONSIVE
+   Paste at the very bottom
+   ========================= */
+
+/* ---------- TABLET (<= 1024px) ---------- */
+@media (max-width: 1024px) {
+
+  .config-top-header {
+    padding: 14px 18px;
+    gap: 12px;
+    flex-wrap: wrap;              /* allow wrap on smaller widths */
+    align-items: center;
+  }
+
+  .download-btn,
+  .change-model-btn,
+  .btn-black,
+  .summary-btn {
+    padding: 12px 16px;
+    font-size: 0.85rem;
+  }
+
+  .conf-content {
+    flex-direction: column;       /* stack left + right */
+    gap: 18px;
+  }
+
+  .conf-left,
+  .summary-right {
+    position: relative;           /* disable sticky on tablet */
+    top: auto;
+  }
+
+  .conf-left {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .conf-right {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .main-image {
+    max-width: 800px;
+    height: 300px;                /* a bit smaller for tablet */
+    top: 0;
+  }
+
+  /* Roof button placement (avoid weird left: 7% on small screens) */
+  .roof-toggle {
+    left: 16px;
+    bottom: 14px;
+    transform: none;
+  }
+
+  .thumbnail-row img {
+    width: 90px;
+    height: 40px;
+  }
+
+  /* options cards grid feel: tighter */
+  .colors-row,
+  .wheels-row,
+  .interiors-row {
+    gap: 10px;
+  }
+
+  .color-option {
+    width: 85px;
+  }
+
+  .wheel-option,
+  .interior-option {
+    width: 140px;
+  }
+
+  /* Modal fit */
+  .modal {
+    width: 92vw;
+    max-width: 92vw;
+    max-height: 92vh;
+  }
+
+  .modal-body {
+    padding: 22px 22px;
+  }
+
+  .modal-footer {
+    padding: 10px 12px;
+  }
+
+  /* Summary section */
+  .summary-container {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .summary-left,
+  .summary-right {
+    flex: none;
+    width: 100%;
+  }
+
+  .summary-section {
+    padding-right: 18px;
+    margin-top: 60px;
+  }
+
+  /* ✅ ADD: LEFT SIDE (IMAGES) STICKY ON TABLET */
+  .conf-left {
+    position: sticky !important;
+    top: 90px;                /* adjust if your sticky header height changes */
+    align-self: flex-start;   /* important for sticky inside flex layouts */
+    height: fit-content;
+  }
+
+  /* ✅ Ensure sticky works (parents must not block it) */
+  .conf-container,
+  .conf-content {
+    overflow: visible !important;
+  }
+/* Make sticky left side look clean when overlapping */
+
+.conf-left {
+  position: sticky;
+  top: 70px;              /* keep your value */
+  z-index: 999;
+  background: #fff;       /* THIS is the important part */
+  padding-bottom: 20px;   /* optional, prevents hard cut */
+}
+
+.conf-right {
+  position: relative;   /* create stacking context */
+  z-index: 1;
+}
+}
+
+
+/* ---------- MOBILE (<= 600px) ---------- */
+@media (max-width: 600px) {
+
+  .conf-container {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .config-top-header {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    gap: 8px;
+  }
+
+  .download-btn,
+  .change-model-btn,
+  .btn-black,
+  .summary-btn {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+  }
+
+  .conf-content {
+    gap: 14px;
+  }
+
+  .main-image {
+    height: 260px;               /* mobile-friendly */
+    border-radius: 10px;
+  }
+
+  /* Roof toggle: keep inside main image corner */
+  .roof-toggle {
+    left: 10px;
+    bottom: 10px;
+    gap: 8px;
+  }
+
+  .roof-btn {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Thumbnails */
+  .thumbnail-row {
+    margin-top: 14px;
+    gap: 8px;
+  }
+
+  .thumbnail-row img {
+    width: 60px;
+    height: 50px;
+  }
+
+  /* Sections */
+  .section {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  /* Make options fit into 2 columns easily */
+  .colors-row,
+  .wheels-row,
+  .interiors-row {
+    gap: 10px;
+  }
+
+  .color-option {
+    width: calc(20% - 6px);
+  }
+
+  .wheel-option,
+  .interior-option {
+    width: calc(20% - 6px);
+  }
+
+  .wheel-option img,
+  .interior-option img {
+    height: 62px;
+  }
+
+  .wheel-option span,
+  .interior-option span {
+    font-size: 0.95rem;
+  }
+
+  .wheel-option small,
+  .interior-option small {
+    font-size: 0.8rem;
+  }
+
+  /* Search bar */
+  .search-bar {
+    max-width: 100%;
+  }
+
+  /* Modal */
+  .modal {
+    width: 94vw;
+    max-width: 94vw;
+    max-height: 92vh;
+    border-radius: 10px;
+  }
+
+  .modal-body {
+    padding: 16px 16px;
+    font-size: 14px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .modal-description {
+    font-size: 14px;
+    text-align: left;            /* justify looks weird on narrow screens */
+  }
+
+  .modal-footer {
+    justify-content: stretch;
+    gap: 10px;
+    padding: 10px 10px;
+  }
+
+  .modal-footer button {
+    width: 100%;
+  }
+
+  /* Summary */
+  .summary-section {
+    margin-top: 40px;
+    padding-right: 12px;
+  }
+
+  .summary-header .model-name {
+    font-size: 1.5rem;
+  }
+
+  .total-price {
+    font-size: 1.5rem;
+  }
+
+  .performance-card {
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .perf-value {
+    font-size: 1.05rem;
+  }
+
+  /* Quote modal */
+  .quote-modal {
+    width: 92vw;
+    max-width: 92vw;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .quote-modal h2 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .quote-modal-image {
+    max-width: 120px;
+  }
+
+  /* ✅ ADD: LEFT SIDE (IMAGES) STICKY ON MOBILE */
+  .conf-left {
+    position: sticky !important;
+    top: 70px;                /* smaller top spacing for mobile header */
+    align-self: flex-start;
+    height: fit-content;
+  }
+
+  /* ✅ Ensure sticky works */
+  .conf-container,
+  .conf-content {
+    overflow: visible !important;
+  }
+
+  /* Make sticky images appear ABOVE right side */
+
+/* Make sticky left side look clean when overlapping */
+
+.conf-left {
+  position: sticky;
+  top: 55px;              /* keep your value */
+  z-index: 999;
+  background: #fff;       /* THIS is the important part */
+  padding-bottom: 20px;   /* optional, prevents hard cut */
+}
+
+.conf-right {
+  position: relative;   /* create stacking context */
+  z-index: 1;
+}
+}

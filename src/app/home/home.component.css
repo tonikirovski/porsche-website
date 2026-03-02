@@ -418,9 +418,58 @@
 ================================ */
 @media (max-width: 1024px) {
 
-  .hero-text h1 {
-    font-size: 5rem;
+  .hero-text {
+    top:75%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 0 1rem;
   }
+
+  .hero-text h1 {
+    font-size: 3.5rem;
+  }
+
+  /* DISCOVER SECTION */
+  .below-video-section {
+    margin-top: 0;
+    padding: 1.5rem 1rem;
+  }
+
+  .text-1 {
+    font-size: 2.5rem;
+    margin-top: -80px;
+  }
+
+  .image-cards-wrapper{
+    width: 100%;
+  margin-top: 0; /* moves it right BELOW the video */
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 0;
+  background: white;
+}
+
+
+.image-card {
+  width: 330px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
 
   .journey-text {
     font-size: 3rem;
@@ -456,7 +505,7 @@
   .intro-image,
   .intro-video,
   .overlay {
-    height: 70vh;
+    height: 85vh;
   }
 
   .overlay {
@@ -464,8 +513,8 @@
   }
 
   .hero-text {
-    top: 55%;
-    left: 50%;
+    top: 80%;
+    left: 20%;
     transform: translate(-50%, -50%);
     text-align: center;
     width: 100%;
@@ -473,6 +522,7 @@
   }
 
   .hero-text h1 {
+    
     font-size: 3rem;
     line-height: 1.1;
   }
@@ -499,18 +549,30 @@
 
   .text-1 {
     font-size: 2.2rem;
+    margin-top: -80px;
   }
 
-  .image-cards-wrapper {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 0;
-  }
+.image-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0;
+  align-items: center; /* center smaller cards */
+}
 
-  .image-card {
-    width: 100%;
-    height: 200px;
-  }
+.image-card {
+  width:79%;              /* 🔥 makes them smaller */
+  aspect-ratio: 16 / 9;    /* 🔥 forces same size */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 
   /* JOURNEY SECTION */
@@ -525,12 +587,13 @@
     margin-right: 20px;
   }
 
-  .hover-video-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    width: 100%;
-    padding: 0 1rem;
-  }
+ .hover-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  gap: 20px;
+  width: 100%;
+  padding: 0 1rem;
+}
 
   .hv-item {
     height: 280px;
@@ -540,12 +603,12 @@
   /* MAP + CONTACT */
   .porsche-center-section {
     flex-direction: column;
-    padding: 30px 15px;
+    padding: 10px 55px;
   }
 
   .map-container {
     width: 100%;
-    height: 280px;
+    height: 20px;
   }
 
   .contact-info {

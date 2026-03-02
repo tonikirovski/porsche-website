@@ -288,4 +288,271 @@
   font-weight: bold;
 }
 
+/* =========================
+   TABLET + MOBILE (drop-in)
+   Paste at the bottom
+   ========================= */
 
+/* ---------- TABLET (<= 992px) ---------- */
+@media (max-width: 992px) {
+
+  /* main image spacing */
+  .variant-img {
+    margin-bottom: 14px;
+  }
+
+  /* switcher: prevent uneven wrapping */
+  .variant-switcher {
+    gap: 16px;
+    font-size: 1rem;
+    padding: 0 18px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .variant-switcher span {
+    flex: 0 0 auto;
+  }
+
+  /* title sizes */
+  .variant-title {
+    font-size: 2.1rem;
+    padding: 0 18px;
+  }
+
+  .variant-gas,
+  .variant-price {
+    padding: 0 18px;
+  }
+
+  /* buttons */
+  .variant-buttons {
+    padding: 0 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-change-model,
+  .btn-configure,
+  .btn-test-drive {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+
+  /* performance: stack */
+  .performance-section {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 18px 18px;
+    margin-top: 40px;
+    gap: 18px;
+  }
+
+  /* ✅ IMAGE FIRST on tablet */
+  .performance-image { order: 1; }
+  .performance-text  { order: 2; }
+
+  .performance-text {
+    align-items: flex-start;
+    gap: 26px;
+  }
+
+  .performance-stat h1 {
+    font-size: 3.2rem;
+  }
+
+  .performance-stat span {
+    font-size: 1.6rem;
+  }
+
+  .performance-image img {
+    width: 60%;
+    max-width: 50%;
+  }
+
+  .tech-details-button {
+    padding: 0 18px;
+    margin-top: 26px;
+  }
+
+  /* details panel: bigger on tablet */
+  .blur-background {
+    width: 100vw;
+  }
+
+  .details-panel {
+    width: 78vw;           /* more room */
+    padding: 26px;
+  }
+
+  .details-content {
+    gap: 28px;
+    padding: 16px;
+  }
+
+  .details-image img {
+    max-width: 360px;
+  }
+
+  .details-text {
+    gap: 22px;
+    font-size: 1rem;
+  }
+
+  .details-group {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+}
+
+
+/* ---------- MOBILE (<= 576px) ---------- */
+@media (max-width: 576px) {
+
+  .variant-full-page {
+    padding-bottom: 30px;
+  }
+
+  /* title + text tighter */
+  .variant-title {
+    font-size: 1.75rem;
+    padding: 0 14px;
+  }
+
+  .variant-gas,
+  .variant-price {
+    padding: 0 14px;
+  }
+
+  .variant-price {
+    font-size: 1rem;
+  }
+
+  /* switcher: horizontal scroll chips */
+  .variant-switcher {
+    gap: 14px;
+    font-size: 0.95rem;
+    padding: 0 14px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .variant-switcher span {
+    padding: 6px 2px; /* easier to tap */
+  }
+
+  /* buttons: stacked full width */
+  .variant-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .btn-change-model,
+  .btn-configure,
+  .btn-test-drive {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* performance: smaller numbers */
+  .performance-section {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 14px;
+    margin-top: 34px;
+    gap: 16px;
+  }
+
+  /* ✅ IMAGE FIRST on mobile */
+  .performance-image { order: 1; }
+  .performance-text  { order: 2; }
+
+
+    .performance-image img {
+    width: 80%;
+    max-width: 80%;
+  }
+  .performance-text {
+    gap: 22px;
+  }
+
+  .performance-stat h1 {
+    font-size: 2.5rem;
+  }
+
+  .performance-stat span {
+    font-size: 1.25rem;
+  }
+
+  .performance-stat p {
+    font-size: 1rem;
+  }
+
+  /* tech details button */
+  .tech-details-button {
+    padding: 0 14px;
+    margin-top: 22px;
+  }
+
+  .tech-details-button button {
+    width: 100%;
+  }
+
+  /* slide panel: FULL SCREEN on mobile */
+  .blur-background {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .details-panel {
+    width: 80vw;          /* full screen */
+    padding: 18px 14px;
+    border-radius: 0;
+  }
+
+  .close-btn {
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+  }
+
+  /* details content stacks */
+  .details-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 12px;
+  }
+
+  .details-image img {
+    max-width: 100%;
+  }
+
+  .details-text {
+    font-size: 0.98rem;
+    gap: 16px;
+  }
+
+  .details-group {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .accordion-item {
+    width: 100%;
+  }
+
+  .accordion-title {
+    font-size: 1.05rem;
+  }
+
+  .spec-row {
+    gap: 10px;
+  }
+}
