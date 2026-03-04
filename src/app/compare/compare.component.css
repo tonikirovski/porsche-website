@@ -42,18 +42,49 @@
 
 
 .plus {
-  font-size: 4rem;
+  font-size: 6rem;
   color: #777;
+}
+
+/* View Details Button */
+.compare-slot button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.compare-slot button:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+/* Active click */
+.compare-slot button:active {
+  transform: translateY(0);
+  background: #000;
 }
 
 .comparison-table {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   border-top: 1px solid #ddd;
    background: #fff;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.05);
   padding: 16px;
+}
+
+/* Make comparison values NOT bold */
+.comparison-table .row strong {
+  font-weight: normal;
 }
 
 .row {
@@ -141,7 +172,7 @@
 
   .compare-slots {
     flex-direction: row;
-    gap: 40px;
+    gap: 140px;
     justify-content: center;
   }
 
@@ -174,10 +205,39 @@
     max-width: 700px;
   }
 
-  .row {
-    grid-template-columns: 1fr 1fr 1fr;
-    font-size: 0.95rem;
+  /* ✅ TABLET TABLE LAYOUT (same as mobile) */
+  .comparison-table .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
     padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+  }
+
+  /* Label centered */
+  .comparison-table .row span {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  /* Values side-by-side and not bold */
+  .comparison-table .row strong {
+    text-align: center;
+    padding: 6px 0;
+    font-weight: 400;
+   
+  }
+
+  /* Header row adjustment */
+  .comparison-table .row.header {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .comparison-table .row.header span {
+    display: none;
   }
 
   .section-title.expandable {
@@ -187,6 +247,7 @@
   .chevron {
     font-size: 1.3rem;
   }
+
 }
 
 
@@ -195,11 +256,11 @@
 ================================ */
 @media (max-width: 768px) {
 
-  .compare-slots {
-    flex-direction: column;
-    gap: 30px;
-    align-items: center;
-  }
+ .compare-slots {
+  flex-direction: column;
+  gap: 45px; /* bigger space between slots */
+  align-items: center;
+}
 
   .compare-slot {
     width: 90%;
@@ -235,9 +296,38 @@
     padding: 12px;
   }
 
-  .row {
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px 0;
+  /* ✅ MOBILE TABLE LAYOUT: Label on top, 2 values under */
+  .comparison-table .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* ✅ Label centered (bold) */
+  .comparison-table .row span {
+    grid-column: 1 / -1;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  /* ✅ Values side-by-side and NOT bold */
+  .comparison-table .row strong {
+    text-align: center;
+    padding: 6px 0;
+    font-weight: 400; /* overrides <strong> */
+  }
+
+  /* ✅ Header row adjustment */
+  .comparison-table .row.header {
+    grid-template-columns: 1fr 1fr;
+    font-size: 0.95rem;
+  }
+
+  .comparison-table .row.header span {
+    display: none;
   }
 
   .section-title.expandable {

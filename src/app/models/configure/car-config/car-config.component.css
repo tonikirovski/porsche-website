@@ -1424,6 +1424,23 @@ hr {
     font-size: 1.05rem;
   }
 
+  /* ✅ ONLY CHANGE SUMMARY ORDER (RIGHT FIRST, THEN LEFT) */
+  .summary-container {
+    display: flex;
+    flex-direction: column; /* stack on mobile */
+    gap: 16px;              /* optional spacing */
+  }
+
+  .summary-right {
+    order: 1; /* FIRST */
+    padding-left: 24px;
+    padding-top: 12px;
+  }
+
+  .summary-left {
+    order: 2; /* SECOND */
+  }
+
   /* Quote modal */
   .quote-modal {
     width: 92vw;
@@ -1457,18 +1474,17 @@ hr {
 
   /* Make sticky images appear ABOVE right side */
 
-/* Make sticky left side look clean when overlapping */
+  /* Make sticky left side look clean when overlapping */
+  .conf-left {
+    position: sticky;
+    top: 55px;              /* keep your value */
+    z-index: 999;
+    background: #fff;       /* THIS is the important part */
+    padding-bottom: 20px;   /* optional, prevents hard cut */
+  }
 
-.conf-left {
-  position: sticky;
-  top: 55px;              /* keep your value */
-  z-index: 999;
-  background: #fff;       /* THIS is the important part */
-  padding-bottom: 20px;   /* optional, prevents hard cut */
-}
-
-.conf-right {
-  position: relative;   /* create stacking context */
-  z-index: 1;
-}
+  .conf-right {
+    position: relative;   /* create stacking context */
+    z-index: 1;
+  }
 }
