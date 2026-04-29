@@ -12,21 +12,24 @@
 
 /* Compare button */
 .compare-btn {
+ 
   width: 100%;
   padding: 14px 16px;
   margin-bottom: 24px;
-  background: #000;
-  color: #fff;
-  border: none;
+  background: transparent;
+  color: black;
+  border: black solid 1px;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  border-radius: 3px;
 }
 
 .compare-btn:hover {
-  background: #1a1a1a;
+  background: black;
+  color: white;
   transform: translateY(-1px);
 }
 
@@ -171,13 +174,15 @@
   }
 
   .compare-btn {
-    width: 100%;
+    width: fit-content;
+    align-self: center;
     margin-bottom: 12px;
+    font-size: 1.5rem;
   }
 
   .model-title,
   .fuel-title {
-    font-size: 20px;
+    font-size: 26px;
     margin: 10px 0 8px;
   }
 
@@ -198,7 +203,7 @@
     padding: 8px 12px;
     border: 1px solid #ddd;
     border-radius: 999px;
-    font-size: 14px;
+    font-size: 18px;
     background: #fff;
   }
 
@@ -239,9 +244,12 @@
   }
 
   .compare-btn {
-    font-size: 0.9rem;
+    width: fit-content;
+    align-self: center;
+    font-size: 1.1rem;
     padding: 12px 14px;
     margin-bottom: 10px;
+    
   }
 
   /* Allow chips to wrap (no annoying horizontal scroll on phones) */
@@ -253,7 +261,7 @@
 
   .models-sidebar ul li {
     padding: 8px 10px;
-    font-size: 13px;
+    font-size: 17px;
   }
 
   /* Cards become single column */
@@ -287,11 +295,11 @@
 
   .model-title,
   .fuel-title {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .models-sidebar ul li {
-    font-size: 12.5px;
+    font-size: 15px;
     padding: 7px 10px;
   }
 

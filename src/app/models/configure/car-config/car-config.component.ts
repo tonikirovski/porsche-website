@@ -90,8 +90,8 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
   selectedImage!: string;
 
   get currentIndex(): number { return this.images.indexOf(this.selectedImage); }
-  get prevImage(): string | null { return this.currentIndex > 0 ? this.images[this.currentIndex - 1] : null; }
-  get nextImage(): string | null { return this.currentIndex < this.images.length - 1 ? this.images[this.currentIndex + 1] : null; }
+  get prevImage(): string { return this.images[(this.currentIndex - 1 + this.images.length) % this.images.length]; }
+  get nextImage(): string { return this.images[(this.currentIndex + 1) % this.images.length]; }
   get dragOffsetPercent(): number { return this.containerWidth ? (this.dragOffset / this.containerWidth) * 100 : 0; }
 
   onDragStart(event: MouseEvent | TouchEvent) {
@@ -104,6 +104,7 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
 
   onDragging(event: MouseEvent | TouchEvent) {
     if (!this.isDragging) return;
+    if (event.cancelable) event.preventDefault();
     const currentX = this.getX(event);
     this.dragOffset = currentX - this.dragStartX;
     if (Math.abs(this.dragOffset) > 10) this.hasMoved = true;
@@ -111,14 +112,22 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
 
   onDragEnd(event: MouseEvent | TouchEvent) {
     if (!this.isDragging) return;
-    const dragThreshold = 80;
+    // Use 20% of the container width as the threshold for a natural "swipe" feel
+    const dragThreshold = this.containerWidth * 0.2; 
     const currentIndex = this.currentIndex;
-    if (this.hasMoved) {
-      if (this.dragOffset > dragThreshold && currentIndex > 0) this.selectedImage = this.images[currentIndex - 1];
-      else if (this.dragOffset < -dragThreshold && currentIndex < this.images.length - 1) this.selectedImage = this.images[currentIndex + 1];
+    let newIndex = currentIndex;
+
+    if (Math.abs(this.dragOffset) > dragThreshold) {
+      if (this.dragOffset > 0) {
+        newIndex = (currentIndex - 1 + this.images.length) % this.images.length;
+      } else {
+        newIndex = (currentIndex + 1) % this.images.length;
+      }
     }
-    this.dragOffset = 0;
+
     this.isDragging = false;
+    this.dragOffset = 0;
+    this.selectedImage = this.images[newIndex];
     this.hasMoved = false;
   }
 
@@ -128,7 +137,7 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
     const baseOffset = relativePosition * 100;
     return `translateX(${baseOffset + dragOffsetPercent}%)`;
   }
-  getSlideTransition(): string { return this.isDragging ? 'none' : 'transform 0.3s ease-out'; }
+  getSlideTransition(): string { return this.isDragging ? 'none' : 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; }
   preventDrag(event: DragEvent) { event.preventDefault(); }
   selectImage(img: string) { this.selectedImage = img; }
 

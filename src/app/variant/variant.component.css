@@ -351,11 +351,13 @@
   }
 
   /* ✅ IMAGE FIRST on tablet */
-  .performance-image { order: 1; }
-  .performance-text  { order: 2; }
+  
+  .performance-text  { order: 1; }
+  .performance-image { order: 2; }
 
   .performance-text {
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 26px;
   }
 
@@ -415,6 +417,12 @@
     padding-bottom: 30px;
   }
 
+.variant-img {
+  width: 125%;
+  max-width: 130%;
+  
+}
+
   /* title + text tighter */
   .variant-title {
     font-size: 1.75rem;
@@ -470,28 +478,33 @@
   }
 
   /* ✅ IMAGE FIRST on mobile */
-  .performance-image { order: 1; }
-  .performance-text  { order: 2; }
+  .performance-text  { order: 1; }
+  .performance-image { order: 2; }
+  
 
 
     .performance-image img {
-    width: 80%;
+    width: 70%;
     max-width: 80%;
   }
   .performance-text {
     gap: 22px;
+    
   }
 
   .performance-stat h1 {
     font-size: 2.5rem;
+    
   }
 
   .performance-stat span {
     font-size: 1.25rem;
+    
   }
 
   .performance-stat p {
     font-size: 1rem;
+    
   }
 
   /* tech details button */

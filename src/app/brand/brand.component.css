@@ -8,7 +8,7 @@
 /* ================= GENERAL ================= */
 
 .section {
-  padding: 120px 80px;
+  padding: 80px 60px;
 }
 
 .center {
@@ -63,8 +63,8 @@
 
 .hero-overlay {
   position: absolute;
-  bottom: 180px;
-  left: 80px;
+  bottom: 60px;
+  left: 50px;
   color: white;
   z-index: 3;
   max-width: 600px;
@@ -104,8 +104,7 @@
 }
 .split {
   display: flex;
-  min-height: 100vh;
-  
+  min-height: 70vh;
 }
 
 .split.reverse {
@@ -153,6 +152,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 30vh;
 }
 
 .parallax::after {
@@ -162,11 +162,19 @@
   background: rgba(0,0,0,0.4);
 }
 
-.parallax h2 {
+.parallax-text {
   position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.parallax h2 {
   font-size: 60px;
   color: white;
-  z-index: 2;
+  margin: 0;
 }
 
 /* ================= CTA ================= */
@@ -181,10 +189,11 @@
   margin-bottom: 40px;
 }
 
-.cta button {
-  background: black;
+.parallax button {
+  background: transparent;
+  border: 2px solid white;
   color: white;
-  border: none;
+  align-items: center;
   padding: 16px 40px;
   font-size: 16px;
   cursor: pointer;
@@ -224,7 +233,7 @@
 
 @media (max-width: 1200px) {
   .hero-overlay h1 {
-    font-size: 72px;
+    font-size: 102px;
   }
 }
 
@@ -238,8 +247,10 @@
     min-height: auto;
   }
 
+  /* On tablet and smaller we want stacked layout with image first
+     so ensure reverse sections also stack with image above text */
   .split.reverse {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .split .image,
@@ -267,6 +278,7 @@
   .parallax h2 {
     font-size: 36px;
     text-align: center;
+    
     padding: 0 20px;
   }
 }
@@ -288,76 +300,9 @@
 
 /* ---------- TABLET (<= 1024px) ---------- */
 @media (max-width: 1024px) {
+  /* Make tablet match mobile: tighter padding and stacked layout */
   .section {
-    padding: 90px 50px;
-  }
-
-  /* HERO */
-  .hero {
-    height: 75vh;
-  }
-
-  .hero-overlay {
-    left: 50px;
-    bottom: 110px;
-    max-width: 520px;
-  }
-
-  .hero-overlay h1 {
-    font-size: 64px;
-    letter-spacing: 2px;
-  }
-
-  .hero-overlay p {
-    font-size: 18px;
-  }
-
-  /* SPLIT */
-  .split .text {
-    padding: 70px 50px;
-  }
-
-  .split h2 {
-    font-size: 38px;
-  }
-
-  .split p {
-    font-size: 17px;
-  }
-
-  /* PARALLAX */
-  .parallax {
-    height: 70vh;
-    background-attachment: scroll; /* iOS/Android performance fix */
-  }
-
-  .parallax h2 {
-    font-size: 42px;
-    padding: 0 24px;
-    text-align: center;
-  }
-
-  /* ABOUT / CTA */
-  .about h2,
-  .cta h2 {
-    font-size: 40px;
-  }
-
-  .about p {
-    font-size: 18px;
-  }
-
-  .cta button {
-    padding: 14px 34px;
-    font-size: 15px;
-  }
-}
-
-
-/* ---------- MOBILE (<= 600px) ---------- */
-@media (max-width: 600px) {
-  .section {
-    padding: 70px 18px;
+    padding: 36px 12px;
   }
 
   /* HERO */
@@ -368,31 +313,138 @@
   .hero-overlay {
     left: 18px;
     right: 18px;
-    bottom: 70px;
+    bottom: 50px;
+    max-width: none;
+    padding: 0 12px;
+  }
+
+  .hero-overlay h1 {
+    font-size: 96px;
+  }
+
+  .hero-overlay p {
+    font-size: 58px;
+  }
+
+  /* SPLIT: stacked, text-first, same sizing as mobile */
+  .split {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .split .image,
+  .split .text {
+    width: 100%;
+  }
+
+  .split .text {
+    padding: 28px 12px;
+    order: 1;
+  }
+
+  .split .image {
+    order: 2;
+    max-height: 60vh;
+    overflow: hidden;
+  }
+
+  .split img {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: cover;
+  }
+
+  .split h2 {
+    font-size: 56px;
+    margin-bottom: 54px;
+  }
+
+  .split p {
+    font-size: 38px;
+  }
+
+  /* PARALLAX */
+.parallax {
+  position: relative;
+  height: 100vh;
+  background: url('/assets/brand/parallax.jpg') center/cover fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30vh;
+}
+  .parallax h2 {
+    /* match other tablet headings */
+    font-size: 56px;
+    padding: 0 16px;
+    text-align: center;
+    line-height: 1.05;
+    font-weight: 600;
+  }
+
+  /* ABOUT / CTA */
+  .cta {
+    margin-top: 0;
+    padding-top: 40px;
+  }
+
+  .about h2,
+  .cta h2 {
+    font-size: 56px;
+  }
+
+  .about p {
+    font-size: 38px;
+    line-height: 1.45;
+  }
+
+  .cta button {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
+
+
+/* ---------- MOBILE (<= 600px) ---------- */
+@media (max-width: 600px) {
+  .section {
+    padding: 15px 18px;
+  }
+
+  /* HERO */
+  .hero {
+    height: 70vh;
+  }
+
+  .hero-overlay {
+    left: 18px;
+    right: 18px;
+    bottom: 50px;
     max-width: none;
   }
 
   .hero-overlay h1 {
-    font-size: 40px;
+    font-size: 54px;
     letter-spacing: 1px;
     line-height: 1.05;
     word-break: break-word;
   }
 
   .hero-overlay p {
-    font-size: 15px;
+    font-size: 22px;
     margin-top: 10px;
   }
 
   /* ABOUT */
   .about h2 {
-    font-size: 32px;
-    margin-bottom: 14px;
+    font-size: 44px;
+    margin-bottom: 12px;
   }
 
   .about p {
-    font-size: 16px;
-    line-height: 1.55;
+    font-size: 20px;
+    line-height: 1.6;
   }
 
   /* SPLIT */
@@ -407,16 +459,16 @@
   }
 
   .split .text {
-    padding: 44px 18px;
+    padding: 20px 18px;
   }
 
   .split h2 {
-    font-size: 30px;
+    font-size: 44px;
     margin-bottom: 12px;
   }
 
   .split p {
-    font-size: 15px;
+    font-size: 20px;
   }
 
   /* PARALLAX */
@@ -424,19 +476,25 @@
     height: 60vh;
     background-attachment: scroll; /* required on mobile */
     background-position: center;
+    padding-bottom: 30vh;
   }
 
   .parallax h2 {
-    font-size: 30px;
+    font-size: 34px;
     padding: 0 16px;
     text-align: center;
     line-height: 1.15;
   }
 
   /* CTA */
+  .cta {
+    margin-top: 0;
+    padding-top: 20px;
+  }
+
   .cta h2 {
-    font-size: 32px;
-    margin-bottom: 18px;
+    font-size: 44px;
+    margin-bottom: 12px;
   }
 
   .cta button {

@@ -1141,14 +1141,21 @@ hr {
     align-items: center;
   }
 
-  .download-btn,
+
   .change-model-btn,
-  .btn-black,
   .summary-btn {
-    padding: 12px 16px;
+    padding: 13px 20px; /* Make it a bit smaller */
     font-size: 0.85rem;
+    margin-top: 5px; /* Move it slightly upward */
   }
 
+
+  .download-btn{
+   padding: 10px 14px; /* Make it a bit smaller */
+    font-size: 0.85rem;
+    margin-bottom: 10px; /* Move it slightly upward */
+
+  }
   .conf-content {
     flex-direction: column;       /* stack left + right */
     gap: 18px;
@@ -1231,6 +1238,26 @@ hr {
   .summary-right {
     flex: none;
     width: 100%;
+  }
+
+  .summary-right {
+    padding-left: 20px;
+  }
+
+  .summary-right .price-label {
+    font-size: 1.1rem;
+  }
+
+  .summary-right .total-price {
+    font-size: 2.6rem;
+  }
+
+  .summary-right .price-row {
+    font-size: 1.2rem;
+  }
+
+  .summary-right .price {
+    font-size: 1.05rem;
   }
 
   .summary-section {
@@ -1333,35 +1360,50 @@ hr {
     font-size: 1.05rem;
   }
 
-  /* Make options fit into 2 columns easily */
+  /* Wider layout for options */
   .colors-row,
   .wheels-row,
   .interiors-row {
-    gap: 10px;
+    gap: 12px;
+    justify-content: flex-start;
   }
 
   .color-option {
-    width: calc(20% - 6px);
+    width: calc(50% - 80px);
+    padding: 8px;
   }
 
   .wheel-option,
   .interior-option {
-    width: calc(20% - 6px);
+    width: calc(50% - 80px);
+    padding: 11px;
   }
 
   .wheel-option img,
   .interior-option img {
-    height: 62px;
+    height: 52px;
   }
 
   .wheel-option span,
   .interior-option span {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 
   .wheel-option small,
   .interior-option small {
     font-size: 0.8rem;
+  }
+
+  /* Bigger items for Tech & Accessories */
+  .search-item {
+    padding: 11px 8px;
+    gap: 12px;
+    border-radius: 8px;
+  }
+
+  .search-item img {
+    width: 48px;
+    height: 48px;
   }
 
   /* Search bar */
