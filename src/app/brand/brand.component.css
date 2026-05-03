@@ -148,7 +148,7 @@
 .parallax {
   position: relative;
   height: 100vh;
-  background: url('/assets/brand/parallax.jpg') center/cover fixed;
+  background: url('assets/brand/parallax.jpg') center/cover fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -368,7 +368,7 @@
 .parallax {
   position: relative;
   height: 100vh;
-  background: url('/assets/brand/parallax.jpg') center/cover fixed;
+  background: url('assets/brand/parallax.jpg') center/cover fixed;
   display: flex;
   align-items: center;
   justify-content: center;
