@@ -10,16 +10,17 @@
 
   <!-- Video (hidden initially) -->
   <video
-    #introVideo
-    class="intro-video"
-    muted
-    loop
-    playsinline
-    preload="auto"
-    [class.show]="showVideo"
-  >
-    <source src="assets/intro.mp4" type="video/mp4" />
-  </video>
+  #introVideo
+  class="intro-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="auto"
+  [class.show]="showVideo"
+>
+  <source src="assets/intro.mp4" type="video/mp4" />
+</video>
 
   <!-- Overlay content -->
   <div class="overlay">
