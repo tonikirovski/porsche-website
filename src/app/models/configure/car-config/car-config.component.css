@@ -1094,37 +1094,6 @@ hr {
   color: #fff;
 }
 
-/* Mobile adjustments */
-@media (max-width: 500px) {
-  .quote-modal {
-    padding: 16px;
-  }
-
-  .quote-modal h2 {
-    font-size: 1.3rem;
-  }
-
-  .quote-modal input {
-    font-size: 0.95rem;
-    padding: 8px 12px;
-  }
-
-  .modal-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .modal-buttons button {
-    width: 100%;
-  }
-}
-
-.quote-modal-image {
-  display: block;
-  margin: 0 auto 12px auto;   /* centers horizontally */
-  max-width: 160px;          /* adjust size */
-  height: auto;
-}
 
 /* =========================
    TABLET + MOBILE RESPONSIVE
@@ -1154,6 +1123,7 @@ hr {
    padding: 10px 14px; /* Make it a bit smaller */
     font-size: 0.85rem;
     margin-bottom: 10px; /* Move it slightly upward */
+    font-weight: 100;
 
   }
   .conf-content {
@@ -1346,8 +1316,8 @@ hr {
   }
 
   .thumbnail-row img {
-    width: 60px;
-    height: 50px;
+    width: 50px;
+    height: 40px;
   }
 
   /* Sections */
@@ -1529,4 +1499,36 @@ hr {
     position: relative;   /* create stacking context */
     z-index: 1;
   }
+}
+
+/* Mobile adjustments */
+@media (max-width: 500px) {
+  .quote-modal {
+    padding: 16px;
+  }
+
+  .quote-modal h2 {
+    font-size: 1.3rem;
+  }
+
+  .quote-modal input {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+  }
+}
+
+.quote-modal-image {
+  display: block;
+  margin: 0 auto 12px auto;   /* centers horizontally */
+  max-width: 160px;          /* adjust size */
+  height: auto;
 }
