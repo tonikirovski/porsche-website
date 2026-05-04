@@ -1,4 +1,7 @@
 <div class="compare-container" (click)="closePicker()">
+<div [class.blur-background]="pickerOpen">
+
+<div class="compare-container">
 
   <h1>Model comparison</h1>
   <p>Pick two Porsche models to compare</p>
@@ -54,27 +57,7 @@
 
   </div>
 
-  <!-- ===================== MINI PICKER ===================== -->
-  <div
-    class="mini-picker"
-    *ngIf="pickerOpen"
-    (click)="$event.stopPropagation()"
-  >
-    <h3>Select a model</h3>
-
-    <div class="mini-grid">
-      <div
-        class="model-card"
-        *ngFor="let v of variants"
-        [class.disabled]="isAlreadySelected(v)"
-        (click)="!isAlreadySelected(v) && pickVariant(v)"
-      >
-        <img [src]="v.imageUrl" />
-        <p>{{ v.name }}</p>
-      </div>
-    </div>
-  </div>
-
+  
   <!-- ===================== COMPARISON ===================== -->
   <div class="comparison-table" *ngIf="selectedVariant1 && selectedVariant2">
 
@@ -141,3 +124,31 @@
   </div>
 
 </div>
+
+</div>
+
+  <!-- ===================== MINI PICKER MODAL ===================== -->
+  <div class="picker-backdrop" *ngIf="pickerOpen" (click)="closePicker()"></div>
+
+  <div
+    class="mini-picker modal-view"
+    *ngIf="pickerOpen"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="picker-header">
+      <h3>Select a model</h3>
+      <button class="close-modal-btn" (click)="closePicker()" type="button">✕</button>
+    </div>
+
+    <div class="mini-grid">
+      <div
+        class="model-card"
+        *ngFor="let v of variants"
+        [class.disabled]="isAlreadySelected(v)"
+        (click)="!isAlreadySelected(v) && pickVariant(v)"
+      >
+        <img [src]="v.imageUrl" />
+        <p>{{ v.name }}</p>
+      </div>
+    </div>
+  </div>
