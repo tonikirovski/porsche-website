@@ -819,9 +819,9 @@
     display: none;
   }
 
-  /* =========================
-     MOBILE SWIPE SLIDER
-  ========================= */
+ /* =========================
+   MOBILE JOURNEY SLIDER (iOS FIXED)
+========================= */
 
 .mobile-journey-slider {
   width: 100%;
@@ -830,10 +830,13 @@
   border-radius: 12px;
   margin-top: 20px;
   position: relative;
-   display: block;
+  display: block;
+
+  /* 👇 IMPORTANT for iOS rendering */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-/* TRACK (IMPORTANT: no width hacks) */
 .slider-track {
   display: flex;
   height: 100%;
@@ -841,43 +844,56 @@
   transition: transform 0.35s ease;
   will-change: transform;
   touch-action: pan-y;
+
+  /* 👇 FIX iOS flex rendering bugs */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-/* EACH SLIDE = CENTERED CARD */
 .slide {
   min-width: 100%;
   height: 300px;
   flex-shrink: 0;
 
-  /* 👇 THIS creates the “not sticky” effect */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+  overflow: hidden;
+
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-/* INNER IMAGE CARD */
 .slide img {
-  width: 92%;              /* 👈 makes it smaller than full width */
+  width: 92%;
   height: 100%;
   object-fit: cover;
 
   border-radius: 14px;
   display: block;
 
-  transition: transform 0.3s ease;
-}
-
-/* small interaction */
-.slide:active img {
-  transform: scale(1.02);
+  /* 👇 iOS smooth rendering fix */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 /* overlay */
 .slide::after {
   content: "";
   position: absolute;
+
   width: 92%;
-  height: 280px;
+  height: 300px;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
   border-radius: 14px;
 
   background: linear-gradient(
@@ -889,24 +905,25 @@
   pointer-events: none;
 }
 
-/* DOTS */
+/* DOTS (iOS spacing fix) */
 .dots {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .dots span {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: black;
+  background: #000;
+  opacity: 0.3;
   transition: 0.3s;
 }
 
 .dots span.active {
-  background: black;
+  opacity: 1;
   transform: scale(1.3);
 }
 }
