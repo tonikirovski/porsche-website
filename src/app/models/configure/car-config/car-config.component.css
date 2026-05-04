@@ -1287,6 +1287,7 @@ hr {
     padding: 10px 12px;
     font-size: 0.8rem;
     border-radius: 6px;
+    
   }
 
   .conf-content {
@@ -1504,6 +1505,16 @@ hr {
 
 /* Mobile adjustments */
 @media (max-width: 500px) {
+
+    .download-btn,
+  .change-model-btn,
+  .btn-black,
+  .summary-btn {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    font-weight: 2000;
+  }
   .quote-modal {
     padding: 16px;
   }

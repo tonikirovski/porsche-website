@@ -745,38 +745,66 @@ getAccessoryByName(name: string) {
 
   // --- PDF EXPORT ---
   downloadSummaryPdf() {
-    const pdfTemplate = document.getElementById('pdf-template') as HTMLElement;
-    if (!pdfTemplate) return;
+  const pdfTemplate = document.getElementById('pdf-template') as HTMLElement;
+  if (!pdfTemplate) return;
 
-    pdfTemplate.style.display = 'block';
-    pdfTemplate.style.position = 'absolute';
-    pdfTemplate.style.left = '-9999px';
-    pdfTemplate.style.top = '0';
+  pdfTemplate.style.display = 'block';
+  pdfTemplate.style.position = 'absolute';
+  pdfTemplate.style.left = '-9999px';
+  pdfTemplate.style.top = '0';
 
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const margin = 10;
-    const pages = pdfTemplate.querySelectorAll('.pdf-page');
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const margin = 10;
+  const pages = pdfTemplate.querySelectorAll('.pdf-page');
 
-    const renderPage = (index: number) => {
-      if (index >= pages.length) {
-        pdfTemplate.style.display = 'none';
-        pdf.save('Porsche-Configuration.pdf');
-        return;
-      }
+  // 🔥 Wait for images to load
+  const waitForImages = (element: HTMLElement) => {
+    const images = element.querySelectorAll('img');
+    return Promise.all(
+      Array.from(images).map(img => {
+        const image = img as HTMLImageElement;
+        if (image.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          image.onload = resolve;
+          image.onerror = resolve;
+        });
+      })
+    );
+  };
 
-      html2canvas(pages[index] as HTMLElement, { scale: 2 }).then(canvas => {
+  const renderPage = (index: number) => {
+    if (index >= pages.length) {
+      pdfTemplate.style.display = 'none';
+      pdf.save('Porsche-Configuration.pdf');
+      return;
+    }
+
+    const currentPage = pages[index] as HTMLElement;
+
+    waitForImages(currentPage).then(() => {
+      html2canvas(currentPage, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: '#ffffff'
+      }).then(canvas => {
+
         const imgData = canvas.toDataURL('image/png');
         const pdfWidth = pageWidth - margin * 2;
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
         if (index > 0) pdf.addPage();
+
         pdf.addImage(imgData, 'PNG', margin, margin, pdfWidth, pdfHeight);
+
         renderPage(index + 1);
       });
-    };
+    });
+  };
 
-    renderPage(0);
-  }
+  renderPage(0);
+}
 
   // --- MODAL SCROLL LISTENER ---
   @HostListener('window:wheel', ['$event'])
