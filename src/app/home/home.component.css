@@ -820,7 +820,7 @@
   }
 
  /* =========================
-   MOBILE JOURNEY SLIDER (iOS FIXED)
+   MOBILE JOURNEY SLIDER (iOS FIXED FINAL)
 ========================= */
 
 .mobile-journey-slider {
@@ -832,9 +832,9 @@
   position: relative;
   display: block;
 
-  /* 👇 IMPORTANT for iOS rendering */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  /* iOS GPU rendering fix */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .slider-track {
@@ -845,9 +845,8 @@
   will-change: transform;
   touch-action: pan-y;
 
-  /* 👇 FIX iOS flex rendering bugs */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .slide {
@@ -861,38 +860,39 @@
 
   position: relative;
   overflow: hidden;
-
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
 }
 
+/* ✅ IMPORTANT FIX: force stable iOS image box */
 .slide img {
   width: 92%;
   height: 100%;
+
+  /* KEY FIX FOR iOS */
   object-fit: cover;
+  object-position: center center;
 
   border-radius: 14px;
   display: block;
 
-  /* 👇 iOS smooth rendering fix */
+  /* prevents iOS stretching/glitching */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
 
-/* overlay */
+/* overlay FIXED (no shift on iOS anymore) */
 .slide::after {
   content: "";
   position: absolute;
 
   width: 92%;
-  height: 300px;
+  height: 100%;
 
   top: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+  left: 50%;
+  transform: translateX(-50%);
 
   border-radius: 14px;
 
@@ -905,7 +905,7 @@
   pointer-events: none;
 }
 
-/* DOTS (iOS spacing fix) */
+/* DOTS */
 .dots {
   display: flex;
   justify-content: center;
