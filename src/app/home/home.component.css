@@ -327,7 +327,9 @@
   transform: scale(1.05); /* subtle zoom */
 }
 
-
+.mobile-journey-slider {
+  display: none;
+}
 
 /* google maps section */
 
@@ -704,68 +706,67 @@
    SMALL PHONES (≤ 480px)
 ================================ */
 @media (max-width: 480px) {
-  
 
   .everything {
-  background: white;
-}
+    background: white;
+  }
 
-/* Container */
-.main-container {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
+  /* =========================
+     MAIN HERO
+  ========================= */
 
-/* Intro image */
-.intro-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 75%;
-  object-fit: cover;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 5;
-}
+  .main-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-.intro-image.hidden {
-  opacity: 0;
-}
+  .intro-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 5;
+  }
 
-/* Video */
-.intro-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 75%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 5;
-}
+  .intro-image.hidden {
+    opacity: 0;
+  }
 
-.intro-video.show {
-  opacity: 1;
-}
+  .intro-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 5;
+  }
 
-/* Overlay content */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 75%;
-  background: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  padding: 2rem;
-  z-index: 10;
-  pointer-events: auto;
-  border-radius: 0px;
-}
-   .hero-text {
-    top:87%;
+  .intro-video.show {
+    opacity: 1;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding: 2rem;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .hero-text {
+    top: 87%;
     left: 20%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -779,7 +780,7 @@
   }
 
   .below-video-section {
-    margin-top: -12vh; /* Pulls up to close the 27% gap (100vh - 73%) */
+    margin-top: -12vh;
   }
 
   .journey-text {
@@ -801,4 +802,104 @@
   .contact-info h4 {
     font-size: 15px;
   }
+
+  /* =========================
+     HIDE DESKTOP GRID
+  ========================= */
+
+  .hover-video-grid {
+    display: none;
+  }
+
+  /* =========================
+     MOBILE SWIPE SLIDER
+  ========================= */
+
+.mobile-journey-slider {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-top: 20px;
+  position: relative;
+   display: block;
 }
+
+/* TRACK (IMPORTANT: no width hacks) */
+.slider-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.35s ease;
+  will-change: transform;
+  touch-action: pan-y;
+}
+
+/* EACH SLIDE = CENTERED CARD */
+.slide {
+  min-width: 100%;
+  height: 300px;
+  flex-shrink: 0;
+
+  /* 👇 THIS creates the “not sticky” effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* INNER IMAGE CARD */
+.slide img {
+  width: 92%;              /* 👈 makes it smaller than full width */
+  height: 100%;
+  object-fit: cover;
+
+  border-radius: 14px;
+  display: block;
+
+  transition: transform 0.3s ease;
+}
+
+/* small interaction */
+.slide:active img {
+  transform: scale(1.02);
+}
+
+/* overlay */
+.slide::after {
+  content: "";
+  position: absolute;
+  width: 92%;
+  height: 280px;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.12),
+    rgba(0, 0, 0, 0.35)
+  );
+
+  pointer-events: none;
+}
+
+/* DOTS */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: black;
+  transition: 0.3s;
+}
+
+.dots span.active {
+  background: black;
+  transform: scale(1.3);
+}
+}
+

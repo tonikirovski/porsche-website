@@ -1,39 +1,42 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements AfterViewInit {
+
   @ViewChild('introVideo') video!: ElementRef<HTMLVideoElement>;
+
   showVideo = false;
   posterShown = true;
 
   constructor(private router: Router) {}
 
-ngAfterViewInit() {
+  // =========================
+  // INTRO VIDEO
+  // =========================
+  ngAfterViewInit() {
     const videoEl = this.video.nativeElement;
 
-    // Ensure video is muted & plays inline for autoplay
     videoEl.muted = true;
     videoEl.playsInline = true;
 
-    // Step 1: Show poster for 4 seconds
     setTimeout(() => {
-      this.showVideo = true;  // Hide poster, show video
+      this.showVideo = true;
 
-      // Step 2: Try autoplay
       const playVideo = () => {
         videoEl.currentTime = 0;
         const playPromise = videoEl.play();
 
         if (playPromise !== undefined) {
           playPromise.catch((err) => {
-            console.warn('Autoplay blocked, waiting for user interaction', err);
-            // fallback: wait for click anywhere
+            console.warn('Autoplay blocked', err);
             document.body.addEventListener('click', () => videoEl.play(), { once: true });
           });
         }
@@ -46,7 +49,7 @@ ngAfterViewInit() {
       }
     }, 4000);
 
-    // ===== FADE-UP SCROLL ANIMATION =====
+    // FADE-UP OBSERVER
     const fadeElements = document.querySelectorAll('.fade-up');
 
     const observer = new IntersectionObserver((entries) => {
@@ -58,62 +61,136 @@ ngAfterViewInit() {
     }, { threshold: 0.15 });
 
     fadeElements.forEach(el => observer.observe(el));
-}
+  }
 
+  // =========================
+  // NAVIGATION
+  // =========================
   goCarrera() {
-    this.router.navigateByUrl('/models/p911/carrera').catch(err => console.error(err));
+    this.router.navigateByUrl('/models/p911/carrera');
   }
 
   goMacan() {
-    this.router.navigateByUrl('/models/macan/macan').catch(err => console.error(err));
+    this.router.navigateByUrl('/models/macan/macan');
   }
 
   goGt3rs() {
-    this.router.navigateByUrl('/models/p911/gt3rs').catch(err => console.error(err));
+    this.router.navigateByUrl('/models/p911/gt3rs');
   }
 
   goModels() {
     this.router.navigate(['/models']);
   }
 
-playVideo(event: any) {
-  const video: HTMLVideoElement = event.currentTarget.querySelector('.hv-video');
-  if (!video) return;
-
-  video.muted = true; // ensure muted for autoplay
-  video.playsInline = true;
-
-  const play = () => {
-    video.currentTime = 0;
-    const promise = video.play();
-    if (promise !== undefined) {
-      promise.catch(err => {
-        console.warn('Hover video autoplay blocked, waiting for user interaction', err);
-        // fallback: click anywhere on body
-        document.body.addEventListener('click', () => video.play(), { once: true });
-      });
-    }
-  };
-
-  // If video ready, play immediately
-  if (video.readyState >= 2) {
-    play();
-  } else {
-    // Otherwise wait until loaded
-    video.addEventListener('loadeddata', play, { once: true });
-  }
-}
-
-stopVideo(event: any) {
-  const video: HTMLVideoElement = event.currentTarget.querySelector('.hv-video');
-  if (!video) return;
-
-  video.pause();
-  video.currentTime = 0;
-}
-
-
   goToModel(model: string) {
     this.router.navigate(['/models'], { queryParams: { model } });
+  }
+
+  // =========================
+  // HOVER VIDEOS (DESKTOP)
+  // =========================
+  playVideo(event: any) {
+    const video: HTMLVideoElement =
+      event.currentTarget.querySelector('.hv-video');
+
+    if (!video) return;
+
+    video.muted = true;
+    video.playsInline = true;
+
+    const play = () => {
+      video.currentTime = 0;
+      const promise = video.play();
+
+      if (promise !== undefined) {
+        promise.catch(err => {
+          console.warn('Hover video blocked', err);
+          document.body.addEventListener(
+            'click',
+            () => video.play(),
+            { once: true }
+          );
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      play();
+    } else {
+      video.addEventListener('loadeddata', play, { once: true });
+    }
+  }
+
+  stopVideo(event: any) {
+    const video: HTMLVideoElement =
+      event.currentTarget.querySelector('.hv-video');
+
+    if (!video) return;
+
+    video.pause();
+    video.currentTime = 0;
+  }
+
+  // =========================
+  // MOBILE SLIDER (SWIPE)
+  // =========================
+
+  slides = [
+    '911',
+    '718',
+    'Taycan',
+    'Panamera',
+    'Macan',
+    'Cayenne'
+  ];
+
+  currentIndex = 0;
+
+  private startX = 0;
+  private currentX = 0;
+  private isDragging = false;
+  private threshold = 50;
+
+  onTouchStart(event: TouchEvent) {
+    this.startX = event.touches[0].clientX;
+    this.isDragging = true;
+  }
+
+  onTouchMove(event: TouchEvent) {
+    if (!this.isDragging) return;
+
+    this.currentX = event.touches[0].clientX;
+
+    // optional: prevents page scroll while swiping
+    event.preventDefault();
+  }
+
+  onTouchEnd() {
+    if (!this.isDragging) return;
+
+    const diff = this.startX - this.currentX;
+
+    if (diff > this.threshold) {
+      this.next();
+    } else if (diff < -this.threshold) {
+      this.prev();
+    }
+
+    this.isDragging = false;
+  }
+
+  next() {
+    this.currentIndex =
+      (this.currentIndex + 1) % this.slides.length;
+  }
+
+  prev() {
+    this.currentIndex =
+      (this.currentIndex - 1 + this.slides.length) %
+      this.slides.length;
+  }
+
+  goToSlide(index: number) {
+    this.currentIndex = index;
   }
 }

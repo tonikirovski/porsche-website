@@ -19,7 +19,7 @@
   preload="auto"
   [class.show]="showVideo"
 >
-  <source src="assets/intro.mp4" type="video/mp4" />
+  <source [src]="'assets/intro.mp4'" type="video/mp4" />
 </video>
 
   <!-- Overlay content -->
@@ -63,90 +63,112 @@
 </div>
 
 <div class="journey">
+
   <h1 class="journey-text fade-up">
     Your Porsche journey starts now.
   </h1>
 
+  <!-- ===================== -->
+  <!-- DESKTOP GRID -->
+  <!-- ===================== -->
   <div class="hover-video-grid">
 
-    <!-- ITEM 1 : 911 -->
-<div class="hv-item"
-     (mouseenter)="playVideo($event)"
-     (mouseleave)="stopVideo($event)"
-     (click)="goToModel('911')">
+    <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('911')">
+      <img src="assets/911-journey.jpg" class="hv-img" />
+      <video class="hv-video" muted loop>
+        <source src="assets/911-journey-vid.mp4" type="video/mp4" />
+      </video>
+    </div>
 
-  <img src="assets/911-journey.jpg" class="hv-img" />
-  <video class="hv-video" muted loop>
-    <source src="assets/911-journey-vid.mp4" type="video/mp4" />
-  </video>
-  
-</div>
-
-
-
-    <!-- ITEM 2 -->
-    <div class="hv-item"
-    (mouseenter)="playVideo($event)"
-    (mouseleave)="stopVideo($event)"
-    (click)="goToModel('718')">
-    
+    <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('718')">
       <img src="assets/718-journey.jpg" class="hv-img" />
       <video class="hv-video" muted loop>
         <source src="assets/718-journey-vid.mp4" type="video/mp4" />
       </video>
-      
     </div>
 
-    <!-- ITEM 3 -->
-    <div class="hv-item"
-    (mouseenter)="playVideo($event)"
-    (mouseleave)="stopVideo($event)"
-    (click)="goToModel('Taycan')">
+    <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Taycan')">
       <img src="assets/taycan-journey.jpg" class="hv-img" />
       <video class="hv-video" muted loop>
         <source src="assets/taycan-journey-vid.mp4" type="video/mp4" />
       </video>
-      
     </div>
 
-    <!-- ITEM 4 -->
-    <div class="hv-item"
-    (mouseenter)="playVideo($event)"
-    (mouseleave)="stopVideo($event)"
-    (click)="goToModel('Panamera')">
+    <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Panamera')">
       <img src="assets/panamera-journey.jpg" class="hv-img" />
       <video class="hv-video" muted loop>
         <source src="assets/panamera-journey-vid.mp4" type="video/mp4" />
       </video>
-      
     </div>
 
-    <!-- ITEM 5 -->
-    <div class="hv-item"
-    (mouseenter)="playVideo($event)"
-    (mouseleave)="stopVideo($event)"
-    (click)="goToModel('Macan')">
+    <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Macan')">
       <img src="assets/macan-journey.jpg" class="hv-img" />
       <video class="hv-video" muted loop>
         <source src="assets/macan-journey-vid.mp4" type="video/mp4" />
       </video>
-      
     </div>
 
-    <!-- ITEM 6 -->
-    <div class="hv-item"
-    (mouseenter)="playVideo($event)"
-    (mouseleave)="stopVideo($event)"
-    (click)="goToModel('Cayenne')">
+    <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Cayenne')">
       <img src="assets/cayenne-journey.jpg" class="hv-img" />
       <video class="hv-video" muted loop>
         <source src="assets/cayenne-journey-vid.mp4" type="video/mp4" />
       </video>
-      
     </div>
 
   </div>
-</div>
+
+  <!-- ===================== -->
+  <!-- MOBILE SLIDER -->
+  <!-- ===================== -->
+  <div class="mobile-journey-slider">
+
+    <div
+      class="slider-track"
+      [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd()"
+    >
+
+      <div class="slide" (click)="goToModel('911')">
+        <img src="assets/911-journey.jpg" />
+      </div>
+
+      <div class="slide" (click)="goToModel('718')">
+        <img src="assets/718-journey.jpg" />
+      </div>
+
+      <div class="slide" (click)="goToModel('Taycan')">
+        <img src="assets/taycan-journey.jpg" />
+      </div>
+
+      <div class="slide" (click)="goToModel('Panamera')">
+        <img src="assets/panamera-journey.jpg" />
+      </div>
+
+      <div class="slide" (click)="goToModel('Macan')">
+        <img src="assets/macan-journey.jpg" />
+      </div>
+
+      <div class="slide" (click)="goToModel('Cayenne')">
+        <img src="assets/cayenne-journey.jpg" />
+      </div>
+
+    </div>
+
+
+
+  </div>
+      <!-- DOTS -->
+    <div class="dots">
+      <span
+        *ngFor="let s of slides; let i = index"
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)"
+      ></span>
+    </div>
+
+</div> <!-- ✅ THIS WAS MISSING BEFORE -->
 
 <!-- Porsche Center Section -->
 <section class="porsche-center-section">
