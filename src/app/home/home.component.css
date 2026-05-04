@@ -9,6 +9,7 @@
 .main-container {
   position: relative;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -186,7 +187,8 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  margin-top: -10vh; /* Pulls up to close the 16% gap (100vh - 84%) */
+  margin-top: -10vh;
+  margin-top: -10dvh; /* Pulls up to close the 16% gap (100vh - 84%) */
   padding: 0rem 0; /* reduced from 3rem to 1rem */
   background: white;
 }
@@ -428,6 +430,7 @@
 .main-container {
   position: relative;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -500,7 +503,8 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  margin-top: -10vh; /* Pulls up to close the 16% gap (100vh - 84%) */
+  margin-top: -10vh;
+  margin-top: -10dvh; /* Pulls up to close the 16% gap (100vh - 84%) */
   padding: 0rem 0; /* reduced from 3rem to 1rem */
   background: white;
 }
@@ -574,6 +578,7 @@
   .intro-video,
   .overlay {
     height: 85vh;
+    height: 85dvh;
   }
 
   .overlay {
@@ -615,7 +620,8 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  margin-top: -1vh; /* Pulls up to close the 16% gap (100vh - 84%) */
+  margin-top: -1vh;
+  margin-top: -1dvh; /* Pulls up to close the 16% gap (100vh - 84%) */
   padding: 0rem 0; /* reduced from 3rem to 1rem */
   background: white;
 }
@@ -718,6 +724,7 @@
   .main-container {
     position: relative;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
   }
 
@@ -781,6 +788,7 @@
 
   .below-video-section {
     margin-top: -12vh;
+    margin-top: -12dvh;
   }
 
   .journey-text {
