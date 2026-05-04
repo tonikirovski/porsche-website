@@ -145,15 +145,7 @@
 
 /* ================= PARALLAX ================= */
 
-.parallax {
-  position: relative;
-  height: 100vh;
-  background: url('/assets/brand/parallax.jpg') center/cover fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 30vh;
-}
+
 
 .parallax::after {
   content: "";
@@ -365,15 +357,7 @@
   }
 
   /* PARALLAX */
-.parallax {
-  position: relative;
-  height: 100vh;
-  background: url('/assets/brand/parallax.jpg') center/cover fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 30vh;
-}
+
   .parallax h2 {
     /* match other tablet headings */
     font-size: 56px;

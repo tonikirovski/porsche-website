@@ -86,3 +86,14 @@ footer {
 .explore-button:hover {
   background-color: #c10000;
 }
+
+
+.parallax {
+  position: relative;
+  height: 100vh;
+  background: url('assets/brand/parallax.jpg') center/cover fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30vh;
+}
