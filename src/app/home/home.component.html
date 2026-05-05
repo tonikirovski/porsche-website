@@ -9,7 +9,7 @@
   />
 
   <!-- Video (hidden initially) -->
-  <video
+<video
   #introVideo
   class="intro-video"
   autoplay
@@ -17,6 +17,7 @@
   loop
   playsinline
   preload="auto"
+  (canplaythrough)="showVideo = true"
   [class.show]="showVideo"
 >
   <source src="assets/intro.mp4" type="video/mp4">
