@@ -62,7 +62,9 @@
               "buildTarget": "porsche-website:build:production"
             },
             "development": {
-              "buildTarget": "porsche-website:build:development"
+              "buildTarget": "porsche-website:build:development",
+              "host": "0.0.0.0",
+              "allowedHosts": ["all"]
             }
           },
           "defaultConfiguration": "development"
