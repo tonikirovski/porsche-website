@@ -26,19 +26,31 @@ export class HomeComponent implements AfterViewInit {
 
     videoEl.muted = true;
     videoEl.playsInline = true;
+    videoEl.addEventListener('error', () => {
+      this.showVideo = false;
+    });
 
     setTimeout(() => {
-      this.showVideo = true;
-
       const playVideo = () => {
         videoEl.currentTime = 0;
         const playPromise = videoEl.play();
 
         if (playPromise !== undefined) {
-          playPromise.catch((err) => {
-            console.warn('Autoplay blocked', err);
-            document.body.addEventListener('click', () => videoEl.play(), { once: true });
-          });
+          playPromise
+            .then(() => {
+              this.showVideo = true;
+            })
+            .catch((err) => {
+              this.showVideo = false;
+              console.warn('Autoplay blocked', err);
+              document.body.addEventListener('click', () => {
+                videoEl.play().then(() => {
+                  this.showVideo = true;
+                });
+              }, { once: true });
+            });
+        } else {
+          this.showVideo = true;
         }
       };
 

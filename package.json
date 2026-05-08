@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:github": "ng build --base-href /porsche-website/",
+    "deploy:github": "npm run build:github && gh-pages -d dist/porsche-website/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
