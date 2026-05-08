@@ -10,12 +10,16 @@
 
   <!-- Video (hidden initially) -->
 <video
+  #introVideo
   class="intro-video"
-  autoplay
   muted
+  autoplay
   loop
   playsinline
+  preload="auto"
   controls
+  [class.show]="showVideo"
+  (canplay)="introVideo.play()"
 >
   <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778261311/intro_hmwzdi.mp4" type="video/mp4">
 </video>
@@ -32,7 +36,7 @@
 
     <img src="assets/porsche-logo-text.png" alt="Porsche Logo" class="logo-image slide-up" />
 
-    <p class="subtitle word1">Precisions.</p>
+    <p class="subtitle word1">Precision.</p>
     <p class="subtitle word2">Performance.</p>
     <p class="subtitle word3">Passion.</p>
   </div>
@@ -121,6 +125,7 @@
   <div class="mobile-journey-slider">
 
     <div
+      #sliderTrack
       class="slider-track"
       [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'"
       (touchstart)="onTouchStart($event)"
