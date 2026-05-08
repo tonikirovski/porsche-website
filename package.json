@@ -37,6 +37,7 @@
     "@types/html2pdf.js": "^0.10.0",
     "@types/jasmine": "~5.1.0",
     "@types/three": "^0.182.0",
+    "angular-cli-ghpages": "^3.0.3",
     "gh-pages": "^6.3.0",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
