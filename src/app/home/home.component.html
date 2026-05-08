@@ -10,16 +10,12 @@
 
   <!-- Video (hidden initially) -->
 <video
-  #introVideo
   class="intro-video"
-  muted
   autoplay
+  muted
   loop
   playsinline
-  preload="auto"
   controls
-  [class.show]="showVideo"
-  (canplay)="introVideo.play()"
 >
   <source src="assets/intro.mp4" type="video/mp4" />
 </video>
