@@ -1,151 +1,314 @@
-/* Entire page white background */
+
+/* ===============================
+   PAGE (CINEMATIC ENTRY)
+================================ */
 .models-page {
   display: flex;
   min-height: 100vh;
-  background-color: #fff;
-  color: #000;
-  padding: 2rem;
-  box-sizing: border-box;
-  gap: 2rem;
-  font-family: 'Arial', sans-serif;
+
+  padding: 2.5rem;
+  gap: 2.5rem;
+
+  font-family: "Inter", Arial, sans-serif;
+
+  background: radial-gradient(
+    circle at top,
+    #ffffff 0%,
+    #f6f6f6 45%,
+    #ffffff 100%
+  );
+
+  animation: cinematicEnter 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Compare button */
+@keyframes cinematicEnter {
+  from {
+    opacity: 0;
+    transform: scale(1.02) translateY(30px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ambient light layer */
+.models-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at 20% 20%,
+    rgba(0,0,0,0.04),
+    transparent 50%
+  );
+
+  pointer-events: none;
+}
+
+/* ===============================
+   SIDEBAR (FLOATING GLASS PANEL)
+================================ */
+.models-sidebar {
+  width: 240px;
+
+  padding: 26px;
+
+  position: sticky;
+  top: 2rem;
+
+  height: fit-content;
+
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(25px);
+
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 20px;
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+
+  animation: sidebarIn 1s ease;
+}
+
+@keyframes sidebarIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===============================
+   COMPARE BUTTON
+================================ */
 .compare-btn {
- 
   width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 24px;
+  padding: 14px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.2);
+
   background: transparent;
-  color: black;
-  border: black solid 1px;
-  font-size: 0.95rem;
+  color: #111;
+
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-  border-radius: 3px;
+
+  transition: all 0.35s ease;
 }
 
 .compare-btn:hover {
-  background: black;
-  color: white;
-  transform: translateY(-1px);
+  background: #111;
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
-/* Sidebar for categories */
-.models-sidebar {
-  width: 220px;
-  padding: 20px;
-  border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-
-  position: sticky;
-  top: 2rem; /* same as .models-page padding */
-  max-height: calc(100vh - 4rem); /* 2rem top + 2rem bottom */
-  overflow-y: auto;
-  background: #fff; /* keeps sticky clean */
-}
-
-/* Titles */
+/* ===============================
+   TITLES
+================================ */
 .model-title,
 .fuel-title {
-  font-size: 26px;
-  font-weight: 400;
-  margin: 10px 0 10px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.6;
+  margin-top: 12px;
 }
 
-/* LIST STYLES */
+/* ===============================
+   FILTER ITEMS (CINEMATIC NAV)
+================================ */
 .models-sidebar ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 14px 0;
+  margin: 0;
 }
 
 .models-sidebar ul li {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 5px;
+
+  padding: 10px 6px;
+
+  font-size: 14px;
+
   cursor: pointer;
-  font-size: 15px;
-  transition: 0.2s ease;
+
+  opacity: 0.6;
+
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-/* Circle next to each item (desktop) */
+/* elegant line indicator */
 .models-sidebar ul li::before {
   content: "";
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid #333;
-  display: inline-block;
-  transition: 0.2s ease;
-}
-
-/* Full circle when active */
-.models-sidebar ul li.active::before {
-  background-color: #333;
-  border-color: #333;
+  width: 0;
+  height: 1px;
+  background: #111;
+  transition: width 0.3s ease;
 }
 
 .models-sidebar ul li:hover {
-  color: #000;
-}
-.models-sidebar ul li:hover::before {
-  border-color: #000;
+  opacity: 1;
+  transform: translateX(5px);
 }
 
-/* Right section: model cards */
+.models-sidebar ul li:hover::before {
+  width: 16px;
+}
+
+.models-sidebar ul li.active {
+  opacity: 1;
+  font-weight: 500;
+  transform: translateX(6px);
+}
+
+.models-sidebar ul li.active::before {
+  width: 22px;
+}
+
+/* ===============================
+   MAIN GRID (SHOWROOM LAYOUT)
+================================ */
 .models-content {
   flex: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 .models-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px;
 }
 
-/* Individual model cards */
+/* ===============================
+   MODEL CARD (CINEMATIC OBJECT)
+================================ */
 .model-card {
-  width: 250px;
-  background: #f8f8f8;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  position: relative;
+
+  border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  background: #fff;
+
+  border: 1px solid rgba(0,0,0,0.06);
+
   text-decoration: none;
   color: inherit;
+
+  transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  animation: cardIn 1s ease both;
+}
+
+/* staggered entrance */
+.model-card:nth-child(1) { animation-delay: 0.05s; }
+.model-card:nth-child(2) { animation-delay: 0.1s; }
+.model-card:nth-child(3) { animation-delay: 0.15s; }
+.model-card:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* soft cinematic lighting layer */
+.model-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at top,
+    rgba(0,0,0,0.06),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* hover focus effect */
+.models-container:hover .model-card {
+  opacity: 0.6;
+  transform: scale(0.98);
+  filter: blur(0.5px);
 }
 
 .model-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  opacity: 1 !important;
+  transform: translateY(-14px) scale(1.03) !important;
+  z-index: 2;
+
+  box-shadow: 0 40px 80px rgba(0,0,0,0.18);
 }
 
+.model-card:hover::before {
+  opacity: 1;
+}
+
+/* ===============================
+   IMAGE (SHOWROOM LIGHTING)
+================================ */
 .model-card img {
   width: 100%;
-  max-height: 150px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
+  height: 180px;
+  object-fit: contain;
+
+  background: linear-gradient(
+    to bottom,
+    #fafafa,
+    #ffffff
+  );
+
+  transition: transform 0.8s ease;
 }
 
+.model-card:hover img {
+  transform: scale(1.08);
+}
+
+/* ===============================
+   TEXT
+================================ */
 .model-card h3 {
-  font-size: 1.2rem;
-  margin: 0.8rem 1rem 0.4rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 12px 14px 4px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .model-card p {
-  font-size: 0.95rem;
-  margin: 0 1rem 1rem;
-  color: #555;
+  font-size: 0.9rem;
+  margin: 0 14px 16px;
+  color: #666;
+  line-height: 1.4;
 }
 
 /* ===============================

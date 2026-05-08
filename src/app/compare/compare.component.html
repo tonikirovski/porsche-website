@@ -1,154 +1,156 @@
 <div class="compare-container" (click)="closePicker()">
-<div [class.blur-background]="pickerOpen">
 
-<div class="compare-container">
+  <!-- BLUR WRAPPER -->
+  <div [class.blur-background]="pickerOpen">
 
-  <h1>Model comparison</h1>
-  <p>Pick two Porsche models to compare</p>
+    <h1>Model comparison</h1>
+    <p>Pick two Porsche models to compare</p>
 
-  <!-- ===================== SLOTS ===================== -->
-  <div class="compare-slots">
+    <!-- ===================== SLOTS ===================== -->
+    <div class="compare-slots">
 
-    <!-- SLOT 1 -->
-    <div
-      class="compare-slot"
-      [class.active]="pickerOpen && activeSlot === 1"
-      (click)="openPicker(1); $event.stopPropagation()"
-    >
-      <ng-container *ngIf="!selectedVariant1">
-        <span class="plus">+</span>
-        <p>Select model</p>
-      </ng-container>
-
-      <ng-container *ngIf="selectedVariant1">
-        <img [src]="selectedVariant1.imageUrl" />
-        <p>{{ selectedVariant1.name }}</p>
-        <button
-          *ngIf="selectedVariant1.route"
-          [routerLink]="selectedVariant1.route"
-        >
-          View details
-        </button>
-      </ng-container>
-    </div>
-
-    <!-- SLOT 2 -->
-    <div
-      class="compare-slot"
-      [class.active]="pickerOpen && activeSlot === 2"
-      (click)="openPicker(2); $event.stopPropagation()"
-    >
-      <ng-container *ngIf="!selectedVariant2">
-        <span class="plus">+</span>
-        <p>Select model</p>
-      </ng-container>
-
-      <ng-container *ngIf="selectedVariant2">
-        <img [src]="selectedVariant2.imageUrl" />
-        <p>{{ selectedVariant2.name }}</p>
-        <button
-          *ngIf="selectedVariant2.route"
-          [routerLink]="selectedVariant2.route"
-        >
-          View details
-        </button>
-      </ng-container>
-    </div>
-
-  </div>
-
-  
-  <!-- ===================== COMPARISON ===================== -->
-  <div class="comparison-table" *ngIf="selectedVariant1 && selectedVariant2">
-
-    <!-- HEADER -->
-    <div class="row header">
-      <span></span>
-      <strong>{{ selectedVariant1.name }}</strong>
-      <strong>{{ selectedVariant2.name }}</strong>
-    </div>
-
-    <!-- SUMMARY SPECS -->
-    <div class="row highlight">
-      <span>Acceleration (0–100 km/h)</span>
-      <strong>{{ selectedVariant1.technical?.acceleration }} s</strong>
-      <strong>{{ selectedVariant2.technical?.acceleration }} s</strong>
-    </div>
-
-    <div class="row highlight">
-      <span>Power</span>
-      <strong>{{ selectedVariant1.technical?.powerPs }} PS</strong>
-      <strong>{{ selectedVariant2.technical?.powerPs }} PS</strong>
-    </div>
-
-    <div class="row highlight">
-      <span>Top speed</span>
-      <strong>{{ selectedVariant1.technical?.topSpeed }} km/h</strong>
-      <strong>{{ selectedVariant2.technical?.topSpeed }} km/h</strong>
-    </div>
-
-    <!-- ===================== EXPANDABLE SECTIONS ===================== -->
-    <ng-container *ngFor="let section of getAllSections(selectedVariant1, selectedVariant2)">
-
-      <!-- SECTION HEADER -->
+      <!-- SLOT 1 -->
       <div
-        class="section-title expandable"
-        (click)="toggleSection(section.key)"
+        class="compare-slot"
+        [class.active]="pickerOpen && activeSlot === 1"
+        (click)="openPicker(1); $event.stopPropagation()"
       >
-        {{ section.title }}
-        <span class="chevron">
-          {{ expandedSections[section.key] ? '−' : '+' }}
-        </span>
+        <ng-container *ngIf="!selectedVariant1">
+          <span class="plus">+</span>
+          <p>Select model</p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedVariant1">
+          <img [src]="selectedVariant1.imageUrl" />
+          <p>{{ selectedVariant1.name }}</p>
+          <button
+            *ngIf="selectedVariant1.route"
+            [routerLink]="selectedVariant1.route"
+          >
+            View details
+          </button>
+        </ng-container>
       </div>
 
-      <!-- SECTION CONTENT -->
-      <div *ngIf="expandedSections[section.key]">
+      <!-- SLOT 2 -->
+      <div
+        class="compare-slot"
+        [class.active]="pickerOpen && activeSlot === 2"
+        (click)="openPicker(2); $event.stopPropagation()"
+      >
+        <ng-container *ngIf="!selectedVariant2">
+          <span class="plus">+</span>
+          <p>Select model</p>
+        </ng-container>
+
+        <ng-container *ngIf="selectedVariant2">
+          <img [src]="selectedVariant2.imageUrl" />
+          <p>{{ selectedVariant2.name }}</p>
+          <button
+            *ngIf="selectedVariant2.route"
+            [routerLink]="selectedVariant2.route"
+          >
+            View details
+          </button>
+        </ng-container>
+      </div>
+
+    </div>
+
+    <!-- ===================== COMPARISON ===================== -->
+    <div class="comparison-table" *ngIf="selectedVariant1 && selectedVariant2">
+
+      <!-- HEADER -->
+      <div class="row header">
+        <span></span>
+        <strong>{{ selectedVariant1.name }}</strong>
+        <strong>{{ selectedVariant2.name }}</strong>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="row highlight">
+        <span>Acceleration (0–100 km/h)</span>
+        <strong>{{ selectedVariant1.technical?.acceleration }} s</strong>
+        <strong>{{ selectedVariant2.technical?.acceleration }} s</strong>
+      </div>
+
+      <div class="row highlight">
+        <span>Power</span>
+        <strong>{{ selectedVariant1.technical?.powerPs }} PS</strong>
+        <strong>{{ selectedVariant2.technical?.powerPs }} PS</strong>
+      </div>
+
+      <div class="row highlight">
+        <span>Top speed</span>
+        <strong>{{ selectedVariant1.technical?.topSpeed }} km/h</strong>
+        <strong>{{ selectedVariant2.technical?.topSpeed }} km/h</strong>
+      </div>
+
+      <!-- EXPANDABLE SECTIONS -->
+      <ng-container *ngFor="let section of getAllSections(selectedVariant1, selectedVariant2)">
+
         <div
-          class="row"
-          *ngFor="let spec of section.specs; let i = index"
+          class="section-title expandable"
+          (click)="toggleSection(section.key)"
         >
-          <span>{{ spec.label }}</span>
-
-          <strong>
-            {{ getSpecValue(selectedVariant1, section.key, i) }}
-          </strong>
-
-          <strong>
-            {{ getSpecValue(selectedVariant2, section.key, i) }}
-          </strong>
+          {{ section.title }}
+          <span class="chevron">
+            {{ expandedSections[section.key] ? '−' : '+' }}
+          </span>
         </div>
-      </div>
 
-    </ng-container>
+        <div *ngIf="expandedSections[section.key]">
+          <div
+            class="row"
+            *ngFor="let spec of section.specs; let i = index"
+          >
+            <span>{{ spec.label }}</span>
+
+            <strong>
+              {{ getSpecValue(selectedVariant1, section.key, i) }}
+            </strong>
+
+            <strong>
+              {{ getSpecValue(selectedVariant2, section.key, i) }}
+            </strong>
+          </div>
+        </div>
+
+      </ng-container>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ===================== MODAL (OUTSIDE EVERYTHING) ===================== -->
+
+<div
+  class="picker-backdrop"
+  *ngIf="pickerOpen"
+  (click)="closePicker()"
+></div>
+
+<div
+  class="mini-picker modal-view"
+  *ngIf="pickerOpen"
+  (click)="$event.stopPropagation()"
+>
+  <div class="picker-header">
+    <h3>Select a model</h3>
 
   </div>
 
-</div>
-
-</div>
-
-  <!-- ===================== MINI PICKER MODAL ===================== -->
-  <div class="picker-backdrop" *ngIf="pickerOpen" (click)="closePicker()"></div>
-
-  <div
-    class="mini-picker modal-view"
-    *ngIf="pickerOpen"
-    (click)="$event.stopPropagation()"
-  >
-    <div class="picker-header">
-      <h3>Select a model</h3>
-      <button class="close-modal-btn" (click)="closePicker()" type="button">✕</button>
-    </div>
-
-    <div class="mini-grid">
-      <div
-        class="model-card"
-        *ngFor="let v of variants"
-        [class.disabled]="isAlreadySelected(v)"
-        (click)="!isAlreadySelected(v) && pickVariant(v)"
-      >
-        <img [src]="v.imageUrl" />
-        <p>{{ v.name }}</p>
-      </div>
+  <div class="mini-grid">
+    <div
+      class="model-card"
+      *ngFor="let v of variants"
+      [class.disabled]="isAlreadySelected(v)"
+      (click)="!isAlreadySelected(v) && pickVariant(v)"
+    >
+      <img [src]="v.imageUrl" />
+      <p>{{ v.name }}</p>
     </div>
   </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { VARIANTS, Variant } from '../shared/variants';
@@ -26,9 +26,13 @@ export class CompareComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const model = params['model']; // only use it if provided
+      const model = params['model'];
+
       if (model) {
-        const preselected = VARIANTS.find(v => v.route && v.route.includes(model));
+        const preselected = VARIANTS.find(
+          v => v.route && v.route.includes(model)
+        );
+
         if (preselected) {
           this.selectedVariant1 = preselected;
         }
@@ -36,13 +40,27 @@ export class CompareComponent implements OnInit {
     });
   }
 
+  // =========================
+  // SCROLL CONTROL (FIXED)
+  // =========================
+  private setBodyScroll(lock: boolean) {
+    document.body.style.overflow = lock ? 'hidden' : 'auto';
+  }
+
+  // =========================
+  // PICKER CONTROL
+  // =========================
   openPicker(slot: 1 | 2) {
     this.activeSlot = slot;
     this.pickerOpen = true;
+
+    this.setBodyScroll(true);
   }
 
   closePicker() {
     this.pickerOpen = false;
+
+    this.setBodyScroll(false);
   }
 
   pickVariant(v: Variant) {
@@ -51,9 +69,14 @@ export class CompareComponent implements OnInit {
     } else {
       this.selectedVariant2 = v;
     }
+
     this.pickerOpen = false;
+    this.setBodyScroll(false);
   }
 
+  // =========================
+  // SELECTION HELPERS
+  // =========================
   isAlreadySelected(v: Variant): boolean {
     return (
       this.selectedVariant1?.name === v.name ||
@@ -65,7 +88,9 @@ export class CompareComponent implements OnInit {
     this.expandedSections[key] = !this.expandedSections[key];
   }
 
-  /** ✅ SAFE helper for template comparison */
+  // =========================
+  // SAFE DATA ACCESS
+  // =========================
   getSpecValue(
     variant: Variant | undefined,
     sectionKey: string,
@@ -78,10 +103,9 @@ export class CompareComponent implements OnInit {
     return section?.specs?.[index]?.value ?? '—';
   }
 
-  /**
-   * Merge sections from both variants so electric sections are included if a car has them
-   * This ensures comparing petrol + electric keeps all sections visible
-   */
+  // =========================
+  // SECTION MERGE LOGIC
+  // =========================
   getAllSections(v1?: Variant, v2?: Variant) {
     if (!v1 && !v2) return [];
 
@@ -94,13 +118,21 @@ export class CompareComponent implements OnInit {
     ]);
 
     const allSections: typeof sections1 = [];
+
     allKeys.forEach(key => {
       const s1 = sections1.find(s => s.key === key);
       const s2 = sections2.find(s => s.key === key);
-      allSections.push(s1 || s2!); // take section from v1 if exists, else v2
+
+      allSections.push(s1 || s2!);
     });
 
     return allSections;
   }
 
+  // =========================
+  // SAFETY CLEANUP (IMPORTANT)
+  // =========================
+  ngOnDestroy() {
+    this.setBodyScroll(false);
+  }
 }
