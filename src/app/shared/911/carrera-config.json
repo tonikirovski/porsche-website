@@ -464,10 +464,11 @@
     }
   },
   "technologyGroups": [
+
     {
       "seats": [
-        { "name": "Lane Change Assist", "price": 875, "img": "assets/p911img/p911-carrera-configure/lane change assist.jpg", "videoUrl": "assets/p911img/p911-carrera-configure/lane-change-assist.mp4", "description": "Alerts the driver to vehicles rapidly approaching from behind or vehicles travelling at the same speed in potential blind spots..." },
-        { "name": "Adaptive cruise control", "price": 1737, "img": "assets/p911img/p911-carrera-configure/adaptive c control.jpg", "videoUrl": "assets/p911img/p911-carrera-configure/adaptive-c-control.mp4", "description": "Radar-based technology that automatically maintains a specified distance from the vehicle in front..." }
+        { "name": "Lane Change Assist", "price": 875, "img": "assets/p911img/p911-carrera-configure/lane change assist.jpg", "videoUrl": "https://res.cloudinary.com/dxvbakxai/video/upload/v1778361325/lane-change-assist_rsqwhv.mp4", "description": "Alerts the driver to vehicles rapidly approaching from behind or vehicles travelling at the same speed in potential blind spots..." },
+        { "name": "Adaptive cruise control", "price": 1737, "img": "assets/p911img/p911-carrera-configure/adaptive c control.jpg", "videoUrl": "https://res.cloudinary.com/dxvbakxai/video/upload/v1778361421/adaptive-c-control_lob5iw.mp4", "description": "Radar-based technology that automatically maintains a specified distance from the vehicle in front..." }
       ]
     }
   ],
