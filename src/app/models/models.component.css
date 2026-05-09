@@ -56,6 +56,7 @@
 ================================ */
 .models-sidebar {
   width: 240px;
+  box-sizing: border-box;
 
   padding: 26px;
 
@@ -95,7 +96,7 @@
   width: 100%;
   padding: 14px;
 
-  border-radius: 12px;
+  border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.2);
 
   background: transparent;
@@ -321,32 +322,38 @@
     flex-direction: column;
     padding: 1.25rem;
     gap: 1.25rem;
+    overflow: visible;
   }
 
   /* Sticky top filter bar */
   .models-sidebar {
     width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #e6e6e6;
-    padding: 14px 12px;
+    padding: 14px;
     position: sticky;
     top: 0;
     z-index: 10;
     max-height: none;
     overflow: visible;
+    border-radius: 14px;
+    display: grid;
+    gap: 10px;
+    background: rgba(255,255,255,0.92);
   }
 
   .compare-btn {
-    width: fit-content;
-    align-self: center;
-    margin-bottom: 12px;
-    font-size: 1.5rem;
+    width: 100%;
+    max-width: 280px;
+    justify-self: center;
+    margin-bottom: 0;
+    padding: 13px 16px;
+    font-size: 17px;
   }
 
   .model-title,
   .fuel-title {
-    font-size: 26px;
-    margin: 10px 0 8px;
+    font-size: 17px;
+    margin: 4px 0 -2px;
+    letter-spacing: 1.6px;
   }
 
   /* Make lists horizontal + scrollable if needed */
@@ -354,20 +361,29 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 10px;
-    padding-bottom: 6px;
-    margin: 0 0 10px 0;
+    gap: 8px;
+    padding: 0 0 4px;
+    margin: 0;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .models-sidebar .categories {
+    flex-wrap: wrap;
+    overflow-x: visible;
   }
 
   /* Convert items to chips */
   .models-sidebar ul li {
     flex: 0 0 auto;
-    padding: 8px 12px;
+    padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: 999px;
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 1;
     background: #fff;
+    white-space: nowrap;
+    transform: none;
   }
 
   /* Remove circle bullets on tablet */
@@ -379,15 +395,12 @@
     border-color: #000;
     background: #f3f3f3;
     opacity: 1;
+    transform: none;
   }
 
   .models-container {
-    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.25rem;
-  }
-
-  .model-card {
-    width: 240px;
   }
 }
 
@@ -403,39 +416,62 @@
   }
 
   .models-sidebar {
-    padding: 5px 15px;
+    top: 0;
+    padding: 76px 14px 16px;
+    gap: 12px;
+    border-radius: 0 0 14px 14px;
   }
 
   .compare-btn {
-    width: fit-content;
-    align-self: center;
-    font-size: 1.1rem;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-    
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    right: auto;
+    width: min(320px, calc(100% - 28px));
+    max-width: 320px;
+    transform: translateX(-50%);
+    font-size: 14px;
+    padding: 13px 14px;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
   }
 
-  /* Allow chips to wrap (no annoying horizontal scroll on phones) */
+  .model-title,
+  .fuel-title {
+    font-size: 13px;
+    margin: 4px 0 -2px;
+    letter-spacing: 1.6px;
+  }
+
+  /* Keep each filter row compact instead of turning the sidebar into a stack */
   .models-sidebar ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  .models-sidebar .categories {
     flex-wrap: wrap;
     overflow-x: visible;
-    gap: 3px;
   }
 
   .models-sidebar ul li {
-    padding: 8px 10px;
-    font-size: 17px;
+    padding: 10px 14px;
+    font-size: 15px;
+    min-height: 38px;
   }
 
   /* Cards become single column */
   .models-container {
-    justify-content: center;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
   }
 
   .model-card {
     width: 100%;
-    max-width: 350px;
+    max-width: 420px;
+    justify-self: center;
   }
 
   .model-card img {
@@ -456,14 +492,19 @@
 ================================ */
 @media (max-width: 480px) {
 
+  .models-sidebar {
+    padding-top: 72px;
+  }
+
   .model-title,
   .fuel-title {
-    font-size: 22px;
+    font-size: 12px;
   }
 
   .models-sidebar ul li {
-    font-size: 15px;
-    padding: 7px 10px;
+    font-size: 14px;
+    padding: 9px 12px;
+    min-height: 36px;
   }
 
   .model-card img {
