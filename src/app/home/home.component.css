@@ -810,37 +810,33 @@
   position: relative;
   overflow: hidden;
 
-  /* ✅ replaces 92% width trick */
-  padding: 0 4%;
   box-sizing: border-box;
 }
 
-/* ✅ CLEAN & STABLE IMAGE */
+/* IMAGE WRAPPER EFFECT (safe for iOS) */
 .slide img {
-  width: 100%;
+  width: 92%;
   height: 100%;
-
   object-fit: cover;
   object-position: center;
 
   border-radius: 14px;
+
   display: block;
 
-  /* iOS rendering fixes */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
-
-  flex-shrink: 0;
 }
 
-/* ✅ STABLE OVERLAY (no shifting) */
+/* overlay matches image, NOT full slide */
 .slide::after {
   content: "";
   position: absolute;
-
-  inset: 0;
-  margin: 0 4%;
+  top: 0;
+  left: 4%;
+  width: 92%;
+  height: 100%;
 
   border-radius: 14px;
 
