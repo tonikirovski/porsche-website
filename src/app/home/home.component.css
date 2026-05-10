@@ -3,6 +3,7 @@
 ================================ */
 .everything {
   background: white;
+  overflow-x: hidden;
 }
 
 /* Container */
@@ -349,6 +350,7 @@
 .map-container {
   flex: 0 0 620px;
   height: 430px;
+  width: 100%;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -722,6 +724,25 @@
 .value {
   text-align: left;
 }
+
+/* iOS Safari: override inherited desktop/tablet sizing on the mobile map/card area. */
+.image-card {
+  height: auto;
+}
+
+.porsche-center-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.map-container,
+.contact-info {
+  flex: 0 0 auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 }
 
 
@@ -842,6 +863,7 @@
 
 .mobile-journey-slider {
   width: 100%;
+  max-width: 100%;
   height: 300px;
   overflow: hidden;
   border-radius: 12px;
@@ -868,9 +890,11 @@
 }
 
 .slide {
+  width: 100%;
   min-width: 100%;
+  max-width: 100%;
+  flex: 0 0 100%;
   height: 300px;
-  flex-shrink: 0;
 
   display: flex;
   justify-content: center;
@@ -884,10 +908,12 @@
 /* SAFE CONTAINER */
 .slide-inner {
   width: 92%;
+  max-width: 92%;
   height: 100%;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
+  flex: 0 0 92%;
 }
 
 /* IMAGE */

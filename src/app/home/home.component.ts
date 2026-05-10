@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements AfterViewInit {
 
   @ViewChild('introVideo') video!: ElementRef<HTMLVideoElement>;
+  @ViewChild('sliderContainer') sliderContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('sliderTrack') sliderTrack!: ElementRef<HTMLDivElement>;
 
   showVideo = false;
@@ -113,7 +114,7 @@ export class HomeComponent implements AfterViewInit {
   // FIXED WIDTH (IMPORTANT FOR iOS)
   // =========================
   private getWidth(): number {
-    return this.sliderTrack.nativeElement.getBoundingClientRect().width;
+    return this.sliderContainer.nativeElement.getBoundingClientRect().width;
   }
 
   // =========================

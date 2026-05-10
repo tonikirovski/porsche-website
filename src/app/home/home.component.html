@@ -133,6 +133,7 @@
     #sliderTrack
     class="slider-track"
     [style.transform]="transformValue"
+    [style.transition]="sliderTransition"
     (touchstart)="onTouchStart($event)"
     (touchmove)="onTouchMove($event)"
     (touchend)="onTouchEnd()"
