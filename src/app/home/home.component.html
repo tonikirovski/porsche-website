@@ -123,7 +123,11 @@
 <!-- MOBILE SLIDER -->
 <!-- ===================== -->
 
-<div class="mobile-journey-slider">
+<!-- ===================== -->
+<!-- MOBILE SLIDER -->
+<!-- ===================== -->
+
+<div class="mobile-journey-slider" #sliderContainer>
 
   <div
     #sliderTrack
@@ -135,31 +139,42 @@
   >
 
     <div class="slide" (click)="goToModel('911')">
-      <img src="assets/911-journey.jpg" />
+      <div class="slide-inner">
+        <img src="assets/911-journey.jpg" />
+      </div>
     </div>
 
     <div class="slide" (click)="goToModel('718')">
-      <img src="assets/718-journey.jpg" />
+      <div class="slide-inner">
+        <img src="assets/718-journey.jpg" />
+      </div>
     </div>
 
     <div class="slide" (click)="goToModel('Taycan')">
-      <img src="assets/taycan-journey.jpg" />
+      <div class="slide-inner">
+        <img src="assets/taycan-journey.jpg" />
+      </div>
     </div>
 
     <div class="slide" (click)="goToModel('Panamera')">
-      <img src="assets/panamera-journey.jpg" />
+      <div class="slide-inner">
+        <img src="assets/panamera-journey.jpg" />
+      </div>
     </div>
 
     <div class="slide" (click)="goToModel('Macan')">
-      <img src="assets/macan-journey.jpg" />
+      <div class="slide-inner">
+        <img src="assets/macan-journey.jpg" />
+      </div>
     </div>
 
     <div class="slide" (click)="goToModel('Cayenne')">
-      <img src="assets/cayenne-journey.jpg" />
+      <div class="slide-inner">
+        <img src="assets/cayenne-journey.jpg" />
+      </div>
     </div>
 
   </div>
-
 </div>
 
 <!-- ===================== -->

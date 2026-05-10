@@ -1,13 +1,11 @@
 /* ===============================
-   GLOBAL
+   DESKTOP 
 ================================ */
 .everything {
   background: white;
 }
 
-/* ===============================
-   MAIN CONTAINER
-================================ */
+/* Container */
 .main-container {
   position: relative;
   height: 100vh;
@@ -15,9 +13,7 @@
   overflow: hidden;
 }
 
-/* ===============================
-   INTRO IMAGE / VIDEO
-================================ */
+/* Intro image */
 .intro-image {
   position: absolute;
   top: 0;
@@ -34,6 +30,7 @@
   opacity: 0;
 }
 
+/* Video */
 .intro-video {
   position: absolute;
   top: 0;
@@ -50,9 +47,7 @@
   opacity: 1;
 }
 
-/* ===============================
-   OVERLAY
-================================ */
+/* Overlay content */
 .overlay {
   position: absolute;
   top: 0;
@@ -64,13 +59,18 @@
   padding: 2rem;
   z-index: 10;
   pointer-events: auto;
+  border-radius: 0px;
 }
 
-/* ===============================
-   LOGO / ANIMATION
-================================ */
+
+
+
+
+
+/* Animation */
 .logo-image {
-  width: 240px;
+  width: 240px; /* Adjust size as needed */
+  
   margin: 0 auto;
   display: block;
   opacity: 0;
@@ -78,6 +78,14 @@
   animation: slideUp 0.8s ease-out forwards;
   animation-delay: 0.3s;
 }
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .animated-logo {
   opacity: 0;
@@ -86,34 +94,41 @@
   animation-delay: 0.3s;
 }
 
-/* FIX: you had duplicate keyframes before */
 @keyframes slideUp {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
-/* ===============================
-   SUBTITLE
-================================ */
+
+/* Each word staggered */
 .subtitle {
   color: #ccc;
   font-size: 1.5rem;
-  margin: 0 auto;
+  margin: 1 auto;
   display: block;
   opacity: 0;
   transform: translateY(30px);
   animation: slideUp 0.8s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
-.word1 { animation-delay: 1s; }
-.word2 { animation-delay: 1.6s; }
-.word3 { animation-delay: 2.2s; }
+.word1 {
+  animation-delay: 1s;
+}
 
-/* ===============================
-   HERO TEXT
-================================ */
+.word2 {
+  animation-delay: 1.6s;
+}
+
+.word3 {
+  animation-delay: 2.2s;
+}
+
+
+
+
 .hero-text {
   position: absolute;
   top: 30%;
@@ -135,35 +150,49 @@
   animation: slideUp 0.8s ease-out forwards;
 }
 
-.hero-text .line1 { animation-delay: 0.6s; }
-.hero-text .line2 { animation-delay: 0.6s; }
+.hero-text .line1 {
+  animation-delay: 0.6s;
+}
 
-/* ===============================
-   BUTTON
-================================ */
+.hero-text .line2 {
+  animation-delay: 0.6s;
+}
+
 .explore-button {
-  background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  background-color: transparent;   /* No background */
+  color: white;                    /* White text */
+  border: 2px solid white;         /* White border */
   padding: 1rem 2rem;
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease;       /* Smooth hover for both color + border */
   margin-top: 1.5rem;
 
   opacity: 0;
   animation: slideUp 0.8s ease-out forwards;
-  animation-delay: 2s;
+  animation-delay: 2.0s;
 }
 
 .explore-button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15); /* Slight white tint on hover */
+  color: white;
+  border-color: white;
 }
 
-/* ===============================
-   FADE UP
-================================ */
+
+
+
+.below-video-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: -10vh;
+  margin-top: -10dvh; /* Pulls up to close the 16% gap (100vh - 84%) */
+  padding: 0rem 0; /* reduced from 3rem to 1rem */
+  background: white;
+}
 .fade-up {
   opacity: 0;
   transform: translateY(40px);
@@ -175,17 +204,25 @@
   opacity: 1;
   transform: translateY(0);
 }
-
-/* ===============================
-   IMAGE CARDS
-================================ */
-.image-cards-wrapper {
+.text-1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 1rem; /* space between heading and images */
+  text-align: center;   /* center if you want */
   width: 100%;
+}
+
+.image-cards-wrapper{
+    width: 100%;
+  margin-top: 0; /* moves it right BELOW the video */
   display: flex;
   justify-content: center;
   gap: 2rem;
   padding: 3rem 0;
+  background: white;
 }
+
 
 .image-card {
   width: 380px;
@@ -204,40 +241,50 @@
   transition: transform 0.6s ease;
 }
 
+/* Hover zoom */
 .image-card:hover img {
   transform: scale(1.08);
 }
 
-/* ===============================
-   JOURNEY SECTION
-================================ */
+.caption {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  color: white;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
+
 .journey {
   margin-top: 80px;
   padding-bottom: 60px;
-  background-color: white;
+    background-color: white;       /* start white */
   transition: background-color 1s ease;
+  
 }
 
 .journey-text {
   font-size: 4rem;
   margin-left: 70px;
   margin-bottom: 40px;
-  color: black;
+    color: black;                  /* start black */
   transition: color 1s ease, transform 1s ease;
 }
 
+/* When section becomes visible */
 .journey.active {
-  background-color: black;
+  background-color: black;       /* fade to black */
 }
 
 .journey.active .journey-text {
-  color: white;
-  transform: translateY(-10px);
+  color: white;                  /* fade to white */
+  transform: translateY(-10px);  /* subtle lift effect */
 }
 
-/* ===============================
-   HOVER VIDEO GRID (FIXED)
-================================ */
+/* GRID INSIDE JOURNEY */
+
 .hover-video-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -252,18 +299,16 @@
   cursor: pointer;
   border-radius: 12px;
   height: 530px;
-
-  /* IMPORTANT FIX FOR HOVER BUG */
-  z-index: 1;
 }
 
+/* image and video styling */
 .hv-img,
 .hv-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  backface-visibility: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease; /* smooth fade + zoom */
+  backface-visibility: hidden; /* improves animation */
 }
 
 .hv-video {
@@ -271,37 +316,34 @@
   top: 0;
   left: 0;
   opacity: 0;
-  pointer-events: none;
+  pointer-events: none; /* ensures hover isn't blocked by video */
   will-change: opacity;
 }
 
-/* FIX: better hover stability */
+/* hover effect */
 .hv-item:hover .hv-video {
   opacity: 1;
 }
 
 .hv-item:hover .hv-img {
   opacity: 0;
-  transform: scale(1.05);
+  transform: scale(1.05); /* subtle zoom */
 }
 
-/* ===============================
-   MOBILE SLIDER
-================================ */
 .mobile-journey-slider {
   display: none;
 }
 
-/* ===============================
-   MAP SECTION
-================================ */
+/* google maps section */
+
 .porsche-center-section {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  
   padding: 50px 20px;
   background-color: #f8f8f8;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* responsive */
 }
 
 .map-container {
@@ -312,6 +354,7 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+
 .contact-info {
   flex: 0 0 320px;
   background: linear-gradient(180deg, #ffffff, #f7f7f7);
@@ -321,23 +364,34 @@
   font-family: "Porsche Next", "Segoe UI", sans-serif;
 }
 
-/* ===============================
-   HOURS / INFO
-================================ */
+.contact-info h3 {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+  margin-top: -23px;
+}
+
 .info-row {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 14px;
 }
 
 .label {
   font-size: 13px;
   color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
 }
 
 .value {
   font-size: 15px;
   color: #222;
+  text-align: right;
+  line-height: 1.4;
 }
 
 .divider {
@@ -346,15 +400,24 @@
   margin: 22px 0;
 }
 
+.contact-info h4 {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
 .hours-row {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
+  margin-bottom: 10px;
 }
 
 .closed {
   color: #b00020;
+  font-weight: 500;
 }
+
 /* ===============================
    TABLET (≤ 1024px)
 ================================ */
@@ -447,10 +510,16 @@
   background: white;
 }
 
-  .text-1 {
-    font-size: 2.5rem;
-    margin-top: -80px;
-  }
+.text-1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: black;
+
+  width: 100%;
+  text-align: center;
+
+  margin-top: -80px;
+}
 
   .image-cards-wrapper{
     width: 100%;
@@ -809,18 +878,24 @@
 
   position: relative;
   overflow: hidden;
-
   box-sizing: border-box;
 }
 
-/* IMAGE WRAPPER EFFECT (safe for iOS) */
-.slide img {
+/* SAFE CONTAINER */
+.slide-inner {
   width: 92%;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* IMAGE */
+.slide-inner img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-
-  border-radius: 14px;
 
   display: block;
 
@@ -829,16 +904,11 @@
   transform: translateZ(0);
 }
 
-/* overlay matches image, NOT full slide */
-.slide::after {
+/* OVERLAY (now stable) */
+.slide-inner::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 4%;
-  width: 92%;
-  height: 100%;
-
-  border-radius: 14px;
+  inset: 0;
 
   background: linear-gradient(
     to bottom,
