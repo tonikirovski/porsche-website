@@ -21,45 +21,48 @@ export class HomeComponent implements AfterViewInit {
   // =========================
   // INTRO VIDEO
   // =========================
-  ngAfterViewInit() {
-    const videoEl = this.video.nativeElement;
+ngAfterViewInit() {
+  const videoEl = this.video.nativeElement;
 
-    videoEl.muted = true;
-    videoEl.playsInline = true;
-    videoEl.addEventListener('error', () => {
-      this.showVideo = false;
-    });
+  videoEl.muted = true;
+  videoEl.playsInline = true;
+  videoEl.setAttribute('webkit-playsinline', 'true');
 
-    setTimeout(() => {
-      const playVideo = () => {
-        videoEl.currentTime = 0;
-        const playPromise = videoEl.play();
+  videoEl.addEventListener('error', () => {
+    this.showVideo = false;
+  });
 
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              this.showVideo = true;
-            })
-            .catch((err) => {
-              this.showVideo = false;
-              console.warn('Autoplay blocked', err);
-              document.body.addEventListener('click', () => {
-                videoEl.play().then(() => {
-                  this.showVideo = true;
-                });
-              }, { once: true });
-            });
-        } else {
+  // 🔥 FORCE EARLY LOAD
+  videoEl.load();
+
+  setTimeout(() => {
+    const playVideo = () => {
+      videoEl.currentTime = 0;
+
+      videoEl.play()
+        .then(() => {
           this.showVideo = true;
-        }
-      };
+        })
+        .catch(() => {
+          this.showVideo = false;
 
-      if (videoEl.readyState >= 2) {
-        playVideo();
-      } else {
-        videoEl.addEventListener('canplay', playVideo, { once: true });
-      }
-    }, 4000);
+          const unlock = () => {
+            videoEl.play().then(() => {
+              this.showVideo = true;
+            });
+          };
+
+          document.body.addEventListener('touchstart', unlock, { once: true });
+          document.body.addEventListener('click', unlock, { once: true });
+        });
+    };
+
+    if (videoEl.readyState >= 2) {
+      playVideo();
+    } else {
+      videoEl.addEventListener('canplay', playVideo, { once: true });
+    }
+  }, 4000);
 
     // FADE-UP OBSERVER
     const fadeElements = document.querySelectorAll('.fade-up');
