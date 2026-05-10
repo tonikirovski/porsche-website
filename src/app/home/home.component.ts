@@ -17,8 +17,27 @@ export class HomeComponent implements AfterViewInit {
   showVideo = false;
   posterShown = true;
 
-  // 🔥 NEW: transform state
-  transformValue = 'translateX(0px)';
+  // =========================
+  // SLIDER STATE
+  // =========================
+  slides = [
+    '911',
+    '718',
+    'Taycan',
+    'Panamera',
+    'Macan',
+    'Cayenne'
+  ];
+
+  currentIndex = 0;
+
+  private startX = 0;
+  private currentX = 0;
+  private isDragging = false;
+  private threshold = 50;
+
+  transformValue = 'translate3d(0px, 0, 0)';
+  sliderTransition = 'none';
 
   constructor(private router: Router) {}
 
@@ -36,7 +55,6 @@ export class HomeComponent implements AfterViewInit {
       this.showVideo = false;
     });
 
-    // 🔥 FORCE EARLY LOAD
     videoEl.load();
 
     setTimeout(() => {
@@ -68,12 +86,10 @@ export class HomeComponent implements AfterViewInit {
       }
     }, 4000);
 
-    // 🔥 INITIAL SLIDER POSITION FIX
     setTimeout(() => {
-      this.updateTransform();
+      this.updateTransform(false);
     });
 
-    // FADE-UP OBSERVER
     const fadeElements = document.querySelectorAll('.fade-up');
 
     const observer = new IntersectionObserver((entries) => {
@@ -88,13 +104,66 @@ export class HomeComponent implements AfterViewInit {
   }
 
   // =========================
-  // SLIDER TRANSFORM FIX
+  // SAFE WIDTH (iOS FIX)
   // =========================
-  updateTransform() {
+  private getWidth(): number {
+    return this.sliderTrack?.nativeElement?.offsetWidth || window.innerWidth;
+  }
+
+  // =========================
+  // TRANSFORM UPDATE
+  // =========================
+  updateTransform(animate: boolean = true) {
     if (!this.sliderTrack) return;
 
-    const width = this.sliderTrack.nativeElement.clientWidth;
-    this.transformValue = `translateX(-${this.currentIndex * width}px)`;
+    const width = this.getWidth();
+    const x = -this.currentIndex * width;
+
+    this.sliderTransition = animate ? 'transform 0.35s ease' : 'none';
+
+    this.transformValue = `translate3d(${x}px, 0, 0)`;
+  }
+
+  // =========================
+  // TOUCH EVENTS (iOS FIXED)
+  // =========================
+  onTouchStart(event: TouchEvent) {
+    this.startX = event.touches[0].clientX;
+    this.isDragging = true;
+
+    this.sliderTransition = 'none';
+  }
+
+  onTouchMove(event: TouchEvent) {
+    if (!this.isDragging) return;
+
+    this.currentX = event.touches[0].clientX;
+
+    const diff = this.currentX - this.startX;
+    const width = this.getWidth();
+
+    const base = -this.currentIndex * width;
+
+    this.transformValue = `translate3d(${base + diff}px, 0, 0)`;
+  }
+
+  onTouchEnd() {
+    if (!this.isDragging) return;
+
+    this.isDragging = false;
+
+    const diff = this.startX - this.currentX;
+
+    if (diff > this.threshold) {
+      this.currentIndex++;
+    } else if (diff < -this.threshold) {
+      this.currentIndex--;
+    }
+
+    if (this.currentIndex < 0) this.currentIndex = this.slides.length - 1;
+    if (this.currentIndex >= this.slides.length) this.currentIndex = 0;
+
+    this.updateTransform(true);
   }
 
   // =========================
@@ -121,7 +190,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   // =========================
-  // HOVER VIDEOS (DESKTOP)
+  // HOVER VIDEOS
   // =========================
   playVideo(event: any) {
     const video: HTMLVideoElement =
@@ -165,68 +234,22 @@ export class HomeComponent implements AfterViewInit {
   }
 
   // =========================
-  // MOBILE SLIDER (SWIPE)
+  // DOT NAVIGATION
   // =========================
-
-  slides = [
-    '911',
-    '718',
-    'Taycan',
-    'Panamera',
-    'Macan',
-    'Cayenne'
-  ];
-
-  currentIndex = 0;
-
-  private startX = 0;
-  private currentX = 0;
-  private isDragging = false;
-  private threshold = 50;
-
-  onTouchStart(event: TouchEvent) {
-    this.startX = event.touches[0].clientX;
-    this.isDragging = true;
-  }
-
-  onTouchMove(event: TouchEvent) {
-    if (!this.isDragging) return;
-
-    this.currentX = event.touches[0].clientX;
-    event.preventDefault();
-  }
-
-  onTouchEnd() {
-    if (!this.isDragging) return;
-
-    const diff = this.startX - this.currentX;
-
-    if (diff > this.threshold) {
-      this.next();
-    } else if (diff < -this.threshold) {
-      this.prev();
-    }
-
-    this.isDragging = false;
+  goToSlide(index: number) {
+    this.currentIndex = index;
+    this.updateTransform(true);
   }
 
   next() {
-    this.currentIndex =
-      (this.currentIndex + 1) % this.slides.length;
-
-    this.updateTransform();
+    this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+    this.updateTransform(true);
   }
 
   prev() {
     this.currentIndex =
-      (this.currentIndex - 1 + this.slides.length) %
-      this.slides.length;
+      (this.currentIndex - 1 + this.slides.length) % this.slides.length;
 
-    this.updateTransform();
-  }
-
-  goToSlide(index: number) {
-    this.currentIndex = index;
-    this.updateTransform();
+    this.updateTransform(true);
   }
 }

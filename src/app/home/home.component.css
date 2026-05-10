@@ -1,11 +1,13 @@
 /* ===============================
-   DESKTOP 
+   GLOBAL
 ================================ */
 .everything {
   background: white;
 }
 
-/* Container */
+/* ===============================
+   MAIN CONTAINER
+================================ */
 .main-container {
   position: relative;
   height: 100vh;
@@ -13,7 +15,9 @@
   overflow: hidden;
 }
 
-/* Intro image */
+/* ===============================
+   INTRO IMAGE / VIDEO
+================================ */
 .intro-image {
   position: absolute;
   top: 0;
@@ -30,7 +34,6 @@
   opacity: 0;
 }
 
-/* Video */
 .intro-video {
   position: absolute;
   top: 0;
@@ -47,7 +50,9 @@
   opacity: 1;
 }
 
-/* Overlay content */
+/* ===============================
+   OVERLAY
+================================ */
 .overlay {
   position: absolute;
   top: 0;
@@ -59,18 +64,13 @@
   padding: 2rem;
   z-index: 10;
   pointer-events: auto;
-  border-radius: 0px;
 }
 
-
-
-
-
-
-/* Animation */
+/* ===============================
+   LOGO / ANIMATION
+================================ */
 .logo-image {
-  width: 240px; /* Adjust size as needed */
-  
+  width: 240px;
   margin: 0 auto;
   display: block;
   opacity: 0;
@@ -79,14 +79,6 @@
   animation-delay: 0.3s;
 }
 
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
 .animated-logo {
   opacity: 0;
   transform: translateX(-30px);
@@ -94,41 +86,34 @@
   animation-delay: 0.3s;
 }
 
+/* FIX: you had duplicate keyframes before */
 @keyframes slideUp {
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-
-/* Each word staggered */
+/* ===============================
+   SUBTITLE
+================================ */
 .subtitle {
   color: #ccc;
   font-size: 1.5rem;
-  margin: 1 auto;
+  margin: 0 auto;
   display: block;
   opacity: 0;
   transform: translateY(30px);
   animation: slideUp 0.8s ease-out forwards;
-  animation-delay: 0.3s;
 }
 
-.word1 {
-  animation-delay: 1s;
-}
+.word1 { animation-delay: 1s; }
+.word2 { animation-delay: 1.6s; }
+.word3 { animation-delay: 2.2s; }
 
-.word2 {
-  animation-delay: 1.6s;
-}
-
-.word3 {
-  animation-delay: 2.2s;
-}
-
-
-
-
+/* ===============================
+   HERO TEXT
+================================ */
 .hero-text {
   position: absolute;
   top: 30%;
@@ -150,49 +135,35 @@
   animation: slideUp 0.8s ease-out forwards;
 }
 
-.hero-text .line1 {
-  animation-delay: 0.6s;
-}
+.hero-text .line1 { animation-delay: 0.6s; }
+.hero-text .line2 { animation-delay: 0.6s; }
 
-.hero-text .line2 {
-  animation-delay: 0.6s;
-}
-
+/* ===============================
+   BUTTON
+================================ */
 .explore-button {
-  background-color: transparent;   /* No background */
-  color: white;                    /* White text */
-  border: 2px solid white;         /* White border */
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
   padding: 1rem 2rem;
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;       /* Smooth hover for both color + border */
+  transition: all 0.3s ease;
   margin-top: 1.5rem;
 
   opacity: 0;
   animation: slideUp 0.8s ease-out forwards;
-  animation-delay: 2.0s;
+  animation-delay: 2s;
 }
 
 .explore-button:hover {
-  background-color: rgba(255, 255, 255, 0.15); /* Slight white tint on hover */
-  color: white;
-  border-color: white;
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
-
-
-
-.below-video-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  margin-top: -10vh;
-  margin-top: -10dvh; /* Pulls up to close the 16% gap (100vh - 84%) */
-  padding: 0rem 0; /* reduced from 3rem to 1rem */
-  background: white;
-}
+/* ===============================
+   FADE UP
+================================ */
 .fade-up {
   opacity: 0;
   transform: translateY(40px);
@@ -204,25 +175,17 @@
   opacity: 1;
   transform: translateY(0);
 }
-.text-1 {
-  font-size: 3rem;
-  font-weight: 600;
-  color: black;
-  margin-bottom: 1rem; /* space between heading and images */
-  text-align: center;   /* center if you want */
-  width: 100%;
-}
 
-.image-cards-wrapper{
-    width: 100%;
-  margin-top: 0; /* moves it right BELOW the video */
+/* ===============================
+   IMAGE CARDS
+================================ */
+.image-cards-wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
   gap: 2rem;
   padding: 3rem 0;
-  background: white;
 }
-
 
 .image-card {
   width: 380px;
@@ -241,50 +204,40 @@
   transition: transform 0.6s ease;
 }
 
-/* Hover zoom */
 .image-card:hover img {
   transform: scale(1.08);
 }
 
-.caption {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  color: white;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-}
-
-
+/* ===============================
+   JOURNEY SECTION
+================================ */
 .journey {
   margin-top: 80px;
   padding-bottom: 60px;
-    background-color: white;       /* start white */
+  background-color: white;
   transition: background-color 1s ease;
-  
 }
 
 .journey-text {
   font-size: 4rem;
   margin-left: 70px;
   margin-bottom: 40px;
-    color: black;                  /* start black */
+  color: black;
   transition: color 1s ease, transform 1s ease;
 }
 
-/* When section becomes visible */
 .journey.active {
-  background-color: black;       /* fade to black */
+  background-color: black;
 }
 
 .journey.active .journey-text {
-  color: white;                  /* fade to white */
-  transform: translateY(-10px);  /* subtle lift effect */
+  color: white;
+  transform: translateY(-10px);
 }
 
-/* GRID INSIDE JOURNEY */
-
+/* ===============================
+   HOVER VIDEO GRID (FIXED)
+================================ */
 .hover-video-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -299,16 +252,18 @@
   cursor: pointer;
   border-radius: 12px;
   height: 530px;
+
+  /* IMPORTANT FIX FOR HOVER BUG */
+  z-index: 1;
 }
 
-/* image and video styling */
 .hv-img,
 .hv-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.4s ease, transform 0.4s ease; /* smooth fade + zoom */
-  backface-visibility: hidden; /* improves animation */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  backface-visibility: hidden;
 }
 
 .hv-video {
@@ -316,34 +271,37 @@
   top: 0;
   left: 0;
   opacity: 0;
-  pointer-events: none; /* ensures hover isn't blocked by video */
+  pointer-events: none;
   will-change: opacity;
 }
 
-/* hover effect */
+/* FIX: better hover stability */
 .hv-item:hover .hv-video {
   opacity: 1;
 }
 
 .hv-item:hover .hv-img {
   opacity: 0;
-  transform: scale(1.05); /* subtle zoom */
+  transform: scale(1.05);
 }
 
+/* ===============================
+   MOBILE SLIDER
+================================ */
 .mobile-journey-slider {
   display: none;
 }
 
-/* google maps section */
-
+/* ===============================
+   MAP SECTION
+================================ */
 .porsche-center-section {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  
   padding: 50px 20px;
   background-color: #f8f8f8;
-  flex-wrap: wrap; /* responsive */
+  flex-wrap: wrap;
 }
 
 .map-container {
@@ -354,7 +312,6 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-
 .contact-info {
   flex: 0 0 320px;
   background: linear-gradient(180deg, #ffffff, #f7f7f7);
@@ -364,34 +321,23 @@
   font-family: "Porsche Next", "Segoe UI", sans-serif;
 }
 
-.contact-info h3 {
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  margin-bottom: 18px;
-  margin-top: -23px;
-}
-
+/* ===============================
+   HOURS / INFO
+================================ */
 .info-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
   margin-bottom: 14px;
 }
 
 .label {
   font-size: 13px;
   color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  white-space: nowrap;
 }
 
 .value {
   font-size: 15px;
   color: #222;
-  text-align: right;
-  line-height: 1.4;
 }
 
 .divider {
@@ -400,24 +346,15 @@
   margin: 22px 0;
 }
 
-.contact-info h4 {
-  font-size: 17px;
-  font-weight: 500;
-  margin-bottom: 14px;
-}
-
 .hours-row {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
-  margin-bottom: 10px;
 }
 
 .closed {
   color: #b00020;
-  font-weight: 500;
 }
-
 /* ===============================
    TABLET (≤ 1024px)
 ================================ */
