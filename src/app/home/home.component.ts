@@ -101,13 +101,19 @@ export class HomeComponent implements AfterViewInit {
     }, { threshold: 0.15 });
 
     fadeElements.forEach(el => observer.observe(el));
+
+    // ✅ iOS performance hint
+    const track = this.sliderTrack.nativeElement;
+    track.style.willChange = 'transform';
+    track.style.webkitBackfaceVisibility = 'hidden';
+    track.style.backfaceVisibility = 'hidden';
   }
 
   // =========================
-  // SAFE WIDTH (iOS FIX)
+  // FIXED WIDTH (IMPORTANT FOR iOS)
   // =========================
   private getWidth(): number {
-    return this.sliderTrack?.nativeElement?.offsetWidth || window.innerWidth;
+    return this.sliderTrack.nativeElement.getBoundingClientRect().width;
   }
 
   // =========================
@@ -117,7 +123,7 @@ export class HomeComponent implements AfterViewInit {
     if (!this.sliderTrack) return;
 
     const width = this.getWidth();
-    const x = -this.currentIndex * width;
+    const x = Math.round(-this.currentIndex * width);
 
     this.sliderTransition = animate ? 'transform 0.35s ease' : 'none';
 
@@ -144,7 +150,9 @@ export class HomeComponent implements AfterViewInit {
 
     const base = -this.currentIndex * width;
 
-    this.transformValue = `translate3d(${base + diff}px, 0, 0)`;
+    const x = Math.round(base + diff);
+
+    this.transformValue = `translate3d(${x}px, 0, 0)`;
   }
 
   onTouchEnd() {
