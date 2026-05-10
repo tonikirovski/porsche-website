@@ -119,57 +119,59 @@
   </div>
 
   <!-- ===================== -->
-  <!-- MOBILE SLIDER -->
-  <!-- ===================== -->
-  <div class="mobile-journey-slider">
+<!-- ===================== -->
+<!-- MOBILE SLIDER -->
+<!-- ===================== -->
 
-    <div
-      #sliderTrack
-      class="slider-track"
-      [style.transform]="'translateX(' + (-currentIndex * 100) + '%)'"
-      (touchstart)="onTouchStart($event)"
-      (touchmove)="onTouchMove($event)"
-      (touchend)="onTouchEnd()"
-    >
+<div class="mobile-journey-slider">
 
-      <div class="slide" (click)="goToModel('911')">
-        <img src="assets/911-journey.jpg" />
-      </div>
+  <div
+    #sliderTrack
+    class="slider-track"
+    [style.transform]="transformValue"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd()"
+  >
 
-      <div class="slide" (click)="goToModel('718')">
-        <img src="assets/718-journey.jpg" />
-      </div>
-
-      <div class="slide" (click)="goToModel('Taycan')">
-        <img src="assets/taycan-journey.jpg" />
-      </div>
-
-      <div class="slide" (click)="goToModel('Panamera')">
-        <img src="assets/panamera-journey.jpg" />
-      </div>
-
-      <div class="slide" (click)="goToModel('Macan')">
-        <img src="assets/macan-journey.jpg" />
-      </div>
-
-      <div class="slide" (click)="goToModel('Cayenne')">
-        <img src="assets/cayenne-journey.jpg" />
-      </div>
-
+    <div class="slide" (click)="goToModel('911')">
+      <img src="assets/911-journey.jpg" />
     </div>
 
+    <div class="slide" (click)="goToModel('718')">
+      <img src="assets/718-journey.jpg" />
+    </div>
 
+    <div class="slide" (click)="goToModel('Taycan')">
+      <img src="assets/taycan-journey.jpg" />
+    </div>
+
+    <div class="slide" (click)="goToModel('Panamera')">
+      <img src="assets/panamera-journey.jpg" />
+    </div>
+
+    <div class="slide" (click)="goToModel('Macan')">
+      <img src="assets/macan-journey.jpg" />
+    </div>
+
+    <div class="slide" (click)="goToModel('Cayenne')">
+      <img src="assets/cayenne-journey.jpg" />
+    </div>
 
   </div>
-      <!-- DOTS -->
-    <div class="dots">
-      <span
-        *ngFor="let s of slides; let i = index"
-        [class.active]="i === currentIndex"
-        (click)="goToSlide(i)"
-      ></span>
-    </div>
 
+</div>
+
+<!-- ===================== -->
+<!-- DOTS -->
+<!-- ===================== -->
+
+<div class="dots">
+  <span
+    *ngFor="let s of slides; let i = index"
+    [class.active]="i === currentIndex"
+    (click)="goToSlide(i)"
+  ></span>
 </div> <!-- ✅ THIS WAS MISSING BEFORE -->
 
 <!-- Porsche Center Section -->

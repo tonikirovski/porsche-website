@@ -12,57 +12,66 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements AfterViewInit {
 
   @ViewChild('introVideo') video!: ElementRef<HTMLVideoElement>;
+  @ViewChild('sliderTrack') sliderTrack!: ElementRef<HTMLDivElement>;
 
   showVideo = false;
   posterShown = true;
+
+  // 🔥 NEW: transform state
+  transformValue = 'translateX(0px)';
 
   constructor(private router: Router) {}
 
   // =========================
   // INTRO VIDEO
   // =========================
-ngAfterViewInit() {
-  const videoEl = this.video.nativeElement;
+  ngAfterViewInit() {
+    const videoEl = this.video.nativeElement;
 
-  videoEl.muted = true;
-  videoEl.playsInline = true;
-  videoEl.setAttribute('webkit-playsinline', 'true');
+    videoEl.muted = true;
+    videoEl.playsInline = true;
+    videoEl.setAttribute('webkit-playsinline', 'true');
 
-  videoEl.addEventListener('error', () => {
-    this.showVideo = false;
-  });
+    videoEl.addEventListener('error', () => {
+      this.showVideo = false;
+    });
 
-  // 🔥 FORCE EARLY LOAD
-  videoEl.load();
+    // 🔥 FORCE EARLY LOAD
+    videoEl.load();
 
-  setTimeout(() => {
-    const playVideo = () => {
-      videoEl.currentTime = 0;
+    setTimeout(() => {
+      const playVideo = () => {
+        videoEl.currentTime = 0;
 
-      videoEl.play()
-        .then(() => {
-          this.showVideo = true;
-        })
-        .catch(() => {
-          this.showVideo = false;
+        videoEl.play()
+          .then(() => {
+            this.showVideo = true;
+          })
+          .catch(() => {
+            this.showVideo = false;
 
-          const unlock = () => {
-            videoEl.play().then(() => {
-              this.showVideo = true;
-            });
-          };
+            const unlock = () => {
+              videoEl.play().then(() => {
+                this.showVideo = true;
+              });
+            };
 
-          document.body.addEventListener('touchstart', unlock, { once: true });
-          document.body.addEventListener('click', unlock, { once: true });
-        });
-    };
+            document.body.addEventListener('touchstart', unlock, { once: true });
+            document.body.addEventListener('click', unlock, { once: true });
+          });
+      };
 
-    if (videoEl.readyState >= 2) {
-      playVideo();
-    } else {
-      videoEl.addEventListener('canplay', playVideo, { once: true });
-    }
-  }, 4000);
+      if (videoEl.readyState >= 2) {
+        playVideo();
+      } else {
+        videoEl.addEventListener('canplay', playVideo, { once: true });
+      }
+    }, 4000);
+
+    // 🔥 INITIAL SLIDER POSITION FIX
+    setTimeout(() => {
+      this.updateTransform();
+    });
 
     // FADE-UP OBSERVER
     const fadeElements = document.querySelectorAll('.fade-up');
@@ -76,6 +85,16 @@ ngAfterViewInit() {
     }, { threshold: 0.15 });
 
     fadeElements.forEach(el => observer.observe(el));
+  }
+
+  // =========================
+  // SLIDER TRANSFORM FIX
+  // =========================
+  updateTransform() {
+    if (!this.sliderTrack) return;
+
+    const width = this.sliderTrack.nativeElement.clientWidth;
+    this.transformValue = `translateX(-${this.currentIndex * width}px)`;
   }
 
   // =========================
@@ -118,8 +137,7 @@ ngAfterViewInit() {
       const promise = video.play();
 
       if (promise !== undefined) {
-        promise.catch(err => {
-          console.warn('Hover video blocked', err);
+        promise.catch(() => {
           document.body.addEventListener(
             'click',
             () => video.play(),
@@ -175,8 +193,6 @@ ngAfterViewInit() {
     if (!this.isDragging) return;
 
     this.currentX = event.touches[0].clientX;
-
-    // optional: prevents page scroll while swiping
     event.preventDefault();
   }
 
@@ -197,15 +213,20 @@ ngAfterViewInit() {
   next() {
     this.currentIndex =
       (this.currentIndex + 1) % this.slides.length;
+
+    this.updateTransform();
   }
 
   prev() {
     this.currentIndex =
       (this.currentIndex - 1 + this.slides.length) %
       this.slides.length;
+
+    this.updateTransform();
   }
 
   goToSlide(index: number) {
     this.currentIndex = index;
+    this.updateTransform();
   }
 }
