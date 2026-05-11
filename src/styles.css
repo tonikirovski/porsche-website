@@ -5,12 +5,23 @@
   box-sizing: border-box;
 }
 
+:root {
+  --porsche-font: "Porsche Next", "Helvetica Neue", Arial, sans-serif;
+}
+
 /* Global styles */
 body {
   margin: 0;
-  font-family: 'Overpass', sans-serif;
+  font-family: var(--porsche-font);
   background-color: #f5f5f5;
   overflow-x: hidden; /* safety net */
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 header {

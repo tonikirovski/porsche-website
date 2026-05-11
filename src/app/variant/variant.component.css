@@ -4,7 +4,7 @@
   padding: 0px;
   min-height: 100vh;
   animation: fadeIn 0.5s ease-in;
-  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  font-family: var(--porsche-font);
 }
 
 .variant-main {
@@ -75,7 +75,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   align-items: center;
-  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  font-family: inherit;
 }
 
 
@@ -207,12 +207,12 @@
   font-weight: 300;
   color:#666;
   margin-bottom: 0px;
-  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  font-family: inherit;
 }
 
 .details-header p {
   font-size: 2rem;
-  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  font-family: inherit;
     margin-top: 1px;
 }
 
@@ -258,7 +258,7 @@
   padding: 12px 0;
   cursor: pointer;
   width: 95%;
-  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  font-family: inherit;
 }
 
 .accordion-title {
@@ -417,11 +417,16 @@
     padding-bottom: 30px;
   }
 
-.variant-img {
-  width: 125%;
-  max-width: 130%;
-  
-}
+  .variant-main {
+    overflow-x: hidden;
+  }
+
+  .variant-img {
+    display: block;
+    width: 130%;
+    max-width: none;
+    height: auto;
+  }
 
   /* title + text tighter */
   .variant-title {

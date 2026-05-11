@@ -79,6 +79,9 @@
       <video class="hv-video" muted loop>
         <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778360321/911-journey-vid_m1cbyu.mp4" type="video/mp4" />
       </video>
+      <div class="hv-copy">
+        <p>The iconic sports car, built around precision, balance and everyday performance.</p>
+      </div>
     </div>
 
     <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('718')">
@@ -86,6 +89,9 @@
       <video class="hv-video" muted loop>
         <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778360305/718-journey-vid_fg9ibx.mp4" type="video/mp4" />
       </video>
+      <div class="hv-copy">
+        <p>A mid-engine sports car with sharp handling and a pure, driver-focused feel.</p>
+      </div>
     </div>
 
     <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Taycan')">
@@ -93,6 +99,9 @@
       <video class="hv-video" muted loop>
         <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778360347/taycan-journey-vid_xwvmrz.mp4" type="video/mp4" />
       </video>
+      <div class="hv-copy">
+        <p>Electric performance with instant response, quiet strength and Porsche character.</p>
+      </div>
     </div>
 
     <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Panamera')">
@@ -100,6 +109,9 @@
       <video class="hv-video" muted loop>
         <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778360697/panamera-journey-vid_stagr1.mp4" type="video/mp4" />
       </video>
+      <div class="hv-copy">
+        <p>A luxury performance sedan that blends long-distance comfort with sports-car energy.</p>
+      </div>
     </div>
 
     <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Macan')">
@@ -107,6 +119,9 @@
       <video class="hv-video" muted loop>
         <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778360686/macan-journey-vid_dfawxe.mp4" type="video/mp4" />
       </video>
+      <div class="hv-copy">
+        <p>A compact SUV with agile handling, confident design and everyday versatility.</p>
+      </div>
     </div>
 
     <div class="hv-item" (mouseenter)="playVideo($event)" (mouseleave)="stopVideo($event)" (click)="goToModel('Cayenne')">
@@ -114,6 +129,9 @@
       <video class="hv-video" muted loop>
         <source src="https://res.cloudinary.com/dxvbakxai/video/upload/v1778360334/cayenne-journey-vid_qw550k.mp4" type="video/mp4" />
       </video>
+      <div class="hv-copy">
+        <p>A powerful SUV made for space, comfort and unmistakable Porsche performance.</p>
+      </div>
     </div>
 
   </div>
@@ -142,36 +160,54 @@
     <div class="slide" (click)="goToModel('911')">
       <div class="slide-inner">
         <img src="assets/911-journey.jpg" />
+        <div class="slide-copy">
+          <p>The iconic sports car, built around precision, balance and everyday performance.</p>
+        </div>
       </div>
     </div>
 
     <div class="slide" (click)="goToModel('718')">
       <div class="slide-inner">
         <img src="assets/718-journey.jpg" />
+        <div class="slide-copy">
+          <p>A mid-engine sports car with sharp handling and a pure, driver-focused feel.</p>
+        </div>
       </div>
     </div>
 
     <div class="slide" (click)="goToModel('Taycan')">
       <div class="slide-inner">
         <img src="assets/taycan-journey.jpg" />
+        <div class="slide-copy">
+          <p>Electric performance with instant response, quiet strength and Porsche character.</p>
+        </div>
       </div>
     </div>
 
     <div class="slide" (click)="goToModel('Panamera')">
       <div class="slide-inner">
         <img src="assets/panamera-journey.jpg" />
+        <div class="slide-copy">
+          <p>A luxury performance sedan that blends long-distance comfort with sports-car energy.</p>
+        </div>
       </div>
     </div>
 
     <div class="slide" (click)="goToModel('Macan')">
       <div class="slide-inner">
         <img src="assets/macan-journey.jpg" />
+        <div class="slide-copy">
+          <p>A compact SUV with agile handling, confident design and everyday versatility.</p>
+        </div>
       </div>
     </div>
 
     <div class="slide" (click)="goToModel('Cayenne')">
       <div class="slide-inner">
         <img src="assets/cayenne-journey.jpg" />
+        <div class="slide-copy">
+          <p>A powerful SUV made for space, comfort and unmistakable Porsche performance.</p>
+        </div>
       </div>
     </div>
 

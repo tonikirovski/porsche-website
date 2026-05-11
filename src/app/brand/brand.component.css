@@ -2,7 +2,7 @@
   display: block;
   background: white;
   color: black;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--porsche-font);
 }
 
 /* ================= GENERAL ================= */
@@ -72,7 +72,7 @@
 
 .hero-overlay h1 {
   font-size: 90px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 4px;
   margin: 0;
 }
@@ -87,6 +87,7 @@
 
 .about h2 {
   font-size: 48px;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
@@ -134,6 +135,7 @@
 
 .split h2 {
   font-size: 44px;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
@@ -165,21 +167,12 @@
 
 .parallax h2 {
   font-size: 60px;
+  font-weight: 500;
   color: white;
   margin: 0;
 }
 
-/* ================= CTA ================= */
 
-.cta {
-  text-align: center;
-  margin-top: -100px;
-}
-
-.cta h2 {
-  font-size: 48px;
-  margin-bottom: 40px;
-}
 
 .parallax button {
   background: transparent;
@@ -192,10 +185,7 @@
   transition: all 0.3s ease;
 }
 
-.cta button:hover {
-  background: #333;
-  transform: translateY(-2px);
-}
+
 
 /* ================= SCROLL FADE-UP ================= */
 
@@ -367,14 +357,9 @@
     font-weight: 600;
   }
 
-  /* ABOUT / CTA */
-  .cta {
-    margin-top: 0;
-    padding-top: 40px;
-  }
+  
 
-  .about h2,
-  .cta h2 {
+  .about h2 {
     font-size: 56px;
   }
 
@@ -383,10 +368,7 @@
     line-height: 1.45;
   }
 
-  .cta button {
-    padding: 14px 18px;
-    font-size: 15px;
-  }
+  
 }
 
 
@@ -465,28 +447,14 @@
 
   .parallax h2 {
     font-size: 34px;
+    font-weight: 500;
     padding: 0 16px;
     text-align: center;
     line-height: 1.15;
+    
   }
 
-  /* CTA */
-  .cta {
-    margin-top: 0;
-    padding-top: 20px;
-  }
-
-  .cta h2 {
-    font-size: 44px;
-    margin-bottom: 12px;
-  }
-
-  .cta button {
-    width: 100%;
-    max-width: 420px;
-    padding: 14px 18px;
-    font-size: 15px;
-  }
+  
 }
 
 
@@ -500,8 +468,8 @@
     font-size: 14px;
   }
 
-  .about h2,
-  .cta h2 {
+  .about h2 {
     font-size: 28px;
+    font-weight: 500;
   }
 }
