@@ -1,0 +1,414 @@
+================================================================================
+SCHOOL OF COMPUTER SCIENCE AND INFORMATION TECHNOLOGY
+Proposal for a Capstone project
+(Based on faculty proposal structure — adapt names, IDs, dates, and supervisors)
+================================================================================
+
+Title:          Porsche Web Application — Digital Showroom and Vehicle Configurator
+Area/Domain:  Web Engineering, Human–Computer Interaction, Client-Side Application Development
+
+Student:       [Your Full Name]
+ID:            [Your Student ID]
+
+Supervisor / Mentor:
+               [Dr Firstname Lastname]
+               [Dr Firstname Lastname]   (optional second mentor)
+
+Date of Assignment:
+               [DD.MM.YYYY]
+
+
+================================================================================
+1. PROJECT METADATA
+================================================================================
+
+Title Page:     Porsche Web Application — Digital Showroom and Vehicle Configurator
+Student:        [Your Full Name]
+ID:             [Your Student ID]
+
+Supervisor / Mentor:
+                [Dr Firstname Lastname]
+                [Dr Firstname Lastname]
+
+University:     University American College Skopje / School of Computer Science and
+                Information Technology
+
+Area / Domain:
+• Web Engineering (Angular web applications, component architecture, client-side routing)
+• Human–Computer Interaction (multi-step product exploration, comparison, configuration)
+• Front-end integration (static data modelling, third-party services for mail and export)
+
+
+================================================================================
+2. ABSTRACT
+================================================================================
+
+In industry, the part of a product that clients, managers, and interviewers interact with
+first is almost always the user interface: layout, motion, clarity of flows, and the
+overall experience matter at least as much as invisible infrastructure. Automotive and
+other high-involvement brands therefore invest heavily in polished web experiences—guided
+browsing, rich media, comparison tools, and configurators that answer questions before a
+human sales conversation begins. The practical problem this capstone will address is how to
+deliver that level of completeness and perceived quality on the client: a coherent journey
+that feels “finished,” not like a bare technical demo.
+
+I will design, implement, test, and document an Angular web application (`porsche-website`)
+that presents a Porsche-style digital showroom with that user-centred goal in mind. The
+experience will span a cinematic home presentation, a filterable catalogue of fourteen vehicle
+variants, detailed variant pages with expandable technical content and motion where it supports
+understanding, a side-by-side comparison flow, and a deep configurator with live imagery
+and price feedback so the visitor can explore options without losing context. Supporting
+features will include a quote request, a downloadable configuration summary, and an embedded map for
+orientation, so the touchpoints of the site feel rounded rather than like an afterthought.
+By default the capstone will be assessed as a live, demonstrable product: reviewers will open the
+running showroom in a browser (local or hosted) rather than judging static screenshots alone.
+
+The implementation will use Angular 19: I will structure the main shopper flows (Home,
+Models, Variant, Compare, and CarConfig) as modular route-level components with client-side routing
+and animations, and I will add a Brand section in the same application shell with narrative
+content and scroll-driven reveals (for example using `IntersectionObserver`). Catalogue and
+configuration data will be modelled in TypeScript and imported JSON files, with templates and
+styles organised per feature. The accompanying thesis will explain the design and implementation
+with emphasis on interaction design, visual hierarchy, responsiveness, and Angular-specific
+decisions that keep the experience consistent from the first screen to the last.
+
+
+================================================================================
+3. PROBLEM STATEMENT AND MOTIVATION
+================================================================================
+
+Problem statement
+-------------------
+Premium automotive websites place heavy demands on the user in a single session: rich landing
+content, filtered catalogues, long technical pages, side-by-side comparison, and
+multi-step configurators where every choice can change imagery and price. From a
+development perspective, the difficulty will be not only to make each screen render without
+errors, but to keep the whole journey legible—consistent navigation, predictable feedback,
+sensible defaults, and motion that clarifies rather than distracts. Small inconsistencies
+between catalogue, detail, compare, and configure views would quickly undermine trust, even when
+the underlying framework is modern and the data model is sound.
+
+This capstone will treat that gap as the central problem: how I will implement a Porsche-style web
+application in Angular where the entire shopper-facing surface (home through
+configurator) feels like one coherent product, with fourteen variants and deep
+configuration rules expressed in TypeScript and JSON files, and with supporting behaviours such
+as quote request, PDF summary, and map context implemented in a way that matches the rest of
+the experience (Angular Team, 2026; Ecma International, 2017; Microsoft, 2026).
+
+Motivation
+----------
+This topic will let me combine interface design judgment with solid
+front-end engineering. Angular will provide structure—routing, components, animations, typed
+data—while the domain forces concrete UX decisions: how filters read on mobile, how a
+comparison table behaves when one car lacks a field, how the configurator communicates
+price changes, and how modals and scrolling feel when the page behind them is long (Angular
+Team, 2026). The thesis will document those choices with screenshots and short rationale,
+not only class relationships and file layout.
+
+I am also motivated by the craft side of the profession: layout, rhythm, and
+micro-interaction are still largely shaped by a human reviewing the running application,
+adjusting spacing and timing, and testing on real devices. The capstone will be an opportunity to
+show that work explicitly—what I refine after first implementation and why—alongside
+integrations where perceived quality depends on reliability (EmailJS, 2026; von Hertzen,
+2026; Parallax, 2026). The scope will stay on the client-side product the user sees:
+showroom, catalogue, comparison, and configurator, without building the inventory or
+customer-record systems a company would operate behind the same brand experience.
+
+Investigation focus
+-------------------
+The written work will pair walkthrough of the delivered Porsche web application with critical
+reflection: where a client-rendered Angular stack is sufficient for a demonstration of
+this depth, where assumptions in static data limit realism, and which UX or engineering
+trade-offs I would revisit with more time or with a separate back-end team in a real
+organisation.
+
+Relevance and feasibility
+---------------------------
+Angular and current browser APIs will provide a feasible basis for a multi-route application with
+non-trivial state, animations, and third-party libraries within a single-semester capstone,
+with the finished work packaged so it can be demonstrated live in a browser for supervisors and
+defence (Mozilla, 2026; Angular Team, 2026).
+
+Technical challenge
+-------------------
+The implementation will need to keep one catalogue (`VARIANTS`) aligned with fourteen per-variant
+JSON configuration payloads; wire client-side routes from home through `/configure/:variant` and
+`/compare`; implement combined image logic and price roll-up in the configurator, cabrio
+roof behaviour where applicable, touch-friendly image sliding, and robust PDF capture
+after images decode (Angular Team, 2026; von Hertzen, 2026; Parallax, 2026). Quote forms
+will validate minimal fields and handle failure states without breaking the flow
+(EmailJS, 2026). The challenge is as much coherence across routes as any single
+algorithm.
+
+Impact
+------
+A successful outcome will be a Porsche-style web application that runs as a live demo in a
+standard browser—so supervisors can follow the same clicks a visitor would—plus a thesis that
+documents architecture, honest limits, and a readable account of UX and Angular decisions. That
+combination should demonstrate readiness for professional client-side work where the quality of
+the interface is the primary measure of success (Crockford, 2008).
+
+
+================================================================================
+4. OBJECTIVES
+================================================================================
+
+1. Implement the multi-route Porsche web application so that home, models (with filters), variant
+   details, comparison, brand content, and the configurator behave consistently with the
+   documented route table and redirect rules for unknown configuration slugs, and so the
+   application is always presentable as a live browser demo (not only as source code).
+
+2. Design and maintain alignment between the `VARIANTS` catalogue in TypeScript and the fourteen
+   per-variant JSON configuration files resolved through `VARIANT_JSON_MAP`, avoiding
+   contradictory metadata across listing, detail, compare, and configure views.
+
+3. Implement and refine configurator behaviour: combined exterior and interior/seat image maps, price
+   totals with animation feedback, technology modals, cabrio roof handling where
+   applicable, and robust loading/error paths for JSON and images.
+
+4. Integrate and stabilise EmailJS for the quote workflow (validated form fields; secrets kept out of
+   submitted thesis materials); implement PDF generation via jsPDF + html2canvas with image-wait logic for
+   reliable multi-page export.
+
+5. Run responsive passes on home (video/slider), compare picker scroll locking, and modal wheel-scroll behaviour; polish animations where time allows.
+
+6. Add or extend unit tests where they add value (`ng test`), and keep production
+   `ng build` within configured bundle budgets in `angular.json`.
+
+7. Produce the capstone thesis and defence materials: architecture figures, screenshots,
+   a balanced discussion of when front-end-only delivery is appropriate versus when it
+   falls short, Harvard-style bibliography, appendices with anonymised code excerpts, and a
+   short live-demo checklist (URL or documented local steps) for examination day.
+
+8. Keep a stable live-demo path: verify the build output or hosted URL before each milestone so
+   the committee always sees a working showroom, configurator, compare flow, PDF, and quote modal.
+
+
+================================================================================
+5. PROPOSED METHODOLOGY AND ARCHITECTURE
+================================================================================
+
+System Architecture
+-------------------
+The system will be implemented as a client-rendered Angular web application (the `porsche-website` project).
+The browser will load `index.html`, start the root `AppComponent`, and render child routes
+inside `<router-outlet>`. All primary
+vehicle and option data will ship with the compiled bundle (TypeScript arrays and imported
+JSON). Third-party services will be used only for email delivery (EmailJS) and for an embedded
+Google Map via a standard iframe embed (Google, 2026), not for hosting custom business
+logic on a server of my own. The default capstone deliverable will be experienced as a live
+web demo opened in a browser (local or hosted), consistent with how the application is meant to be judged.
+
+Components (conceptual)
+-----------------------
+• Application shell (`AppComponent`): will provide persistent header navigation (`routerLink`), main
+  outlet, footer; scroll reset on navigation end.
+
+• `HomeComponent`: will provide hero image/video, draggable model-line slider, hover-video grids, image
+  cards, embedded Google Maps iframe for a fixed dealership location (Google, 2026).
+
+• `ModelsComponent`: will render `VARIANTS` with client-side filters (model line, fuel,
+  transmission); will support query parameters to pre-select filters.
+
+• `VariantComponent`: will resolve `/models/:model/:variant`, show imagery and technical
+  sections, animated performance figures on scroll, sibling variant navigation, and navigation to
+  `/configure/:variant` and `/compare` with optional query params.
+
+• `CompareComponent`: will provide two-slot variant picker, merged specification sections, safe
+  display for missing values, body scroll lock when modal picker is open.
+
+• `CarConfigComponent`: will map slug → JSON (`VARIANT_JSON_MAP`); will implement sections for colours, wheels, interior,
+  seats, technology, accessories; combined image maps; price aggregation; cabrio roof
+  state; image slider; technology and quote modals; EmailJS submit; jsPDF + html2canvas
+  PDF export from hidden template pages (EmailJS, 2026; Parallax, 2026; von Hertzen, 2026).
+
+• `BrandComponent`: will present brand narrative with intersection-based reveal patterns as part of the same routed experience.
+
+Tech Stack
+----------
+• Framework: Angular 19, TypeScript 5.7, RxJS (Angular Team, 2026; Microsoft, 2026;
+  ReactiveX, 2026).
+
+• UI: HTML5, CSS3, Angular animations; `FormsModule` for quote form binding.
+
+• Data: JSON (ECMA-404) configuration files per variant; central `Variant` interface and
+  `VARIANTS` array (Ecma International, 2017).
+
+• Integrations: `emailjs-com`, `jspdf`, `html2canvas`; embedded Google Maps (iframe).
+
+• Tooling: Angular CLI, Karma/Jasmine for unit tests; optional `gh-pages` deployment script.
+
+• Dependencies also listed in `package.json` (e.g. `html2pdf.js`, `three`, `intl-tel-input`)
+  are out of scope for the core thesis narrative unless explicitly activated in the UI
+  before submission.
+
+Algorithm / Logic (high level)
+------------------------------
+1. Route resolution: the Angular router will match the URL and instantiate the mapped route
+   component (`AppComponent` will host `<router-outlet>`) (Mozilla, 2026; Angular Team, 2026).
+
+2. Variant resolution: `VariantComponent` will locate a `VARIANTS` entry by route; compare
+   and models views will consume the same array for consistency.
+
+3. Configuration load: `CarConfigComponent` will normalise the `:variant` slug, load JSON
+   from `VARIANT_JSON_MAP`, or redirect to `/models` if unknown.
+
+4. Selection updates: user choices will update component state; combined maps will select hero
+   imagery; `totalPrice` will aggregate base price and options; UI animations will provide feedback.
+
+5. Quote path: validated form → payload object → `emailjs.send` → user feedback alert
+   (EmailJS, 2026).
+
+6. PDF path: hidden template → wait for layout/images → html2canvas per page →
+   jsPDF `addImage` / `addPage` → save file (von Hertzen, 2026; Parallax, 2026).
+
+7. Logging: browser `console` for development errors; the thesis may discuss replacing this with
+   structured logging if a backend is added in future work (out of scope for this capstone).
+
+
+================================================================================
+6. IMPLEMENTATION TIMELINE (GANTT-STYLE TABLE)
+================================================================================
+
+Phase          Tasks
+               ----------------------------------------------------------------
+I: Research    Short literature skim on Angular web applications, UI/UX patterns for
+               automotive sites, JSON-based front-ends, and client-side PDF/email
+               patterns; freeze scope and success
+               criteria with supervisor.
+               Duration: Weeks 1–2
+
+II: Design     Route map, component responsibilities, data dictionary for `VARIANTS`
+               and JSON schemas; wireframes or figure list for thesis; list of figures
+               for screenshots.
+               Duration: Weeks 3–4
+
+III: Develop   Core implementation and polish: configurator edge cases, responsive UI, compare and
+               home behaviours; integration wiring (EmailJS, PDF); avoid committing
+               secrets to public repos.
+               Duration: Weeks 5–9
+
+IV: Test       `ng test` where valuable; manual cross-browser passes; production `ng build`
+               and budget check; capture screenshots and metrics for thesis.
+               Duration: Weeks 10–11
+
+V: Finalise    Complete thesis chapters, references (Harvard), appendices, rehearsal of the live
+               browser demo (hosted URL or local), presentation materials; optional static deploy documentation.
+               Duration: Weeks 12–14
+
+(Adjust week numbers to match your official capstone calendar.)
+
+
+================================================================================
+7. SUCCESS CRITERIA AND EVALUATION
+================================================================================
+
+Functional Criteria
+---------------------
+• All declared routes will render without console errors under normal use; unknown configure
+  slugs will redirect safely to the model catalogue.
+
+• Users will be able to filter models, open any of the fourteen variant detail pages, compare two
+  distinct variants, and open the configurator from a variant.
+
+• Configurator selections will update imagery and displayed total price consistently with the
+  underlying JSON rules for each supported slug.
+
+• The quote modal will enforce required fields and will complete or surface failure for EmailJS
+  calls under typical network conditions.
+
+• PDF download will produce a readable multi-page summary for at least the variants used in
+  the demonstration script for the defence.
+
+• Live demonstration: the committee will be able to open the showroom in a browser (hosted URL
+  and/or documented local steps) and walk the main journeys without broken builds on examination day.
+
+Non-Functional Criteria
+-----------------------
+• Responsiveness: primary flows will be usable on a common laptop width and a narrow mobile width
+  without broken navigation or unusable modals.
+
+• Maintainability: configuration data will remain in JSON/TypeScript rather than hard-coded
+  in templates; component files will remain within reasonable size for a single-developer
+  capstone.
+
+• Build health: `ng build` will complete; bundle size will remain within configured warning/error
+  thresholds or any deviation will be justified in the thesis.
+
+Comparative / Analytical Evaluation (thesis narrative)
+--------------------------------------------------------
+The thesis will contrast “front-end-only” delivery with a hypothetical small backend
+variant (validated quotes, inventory)—not by implementing the backend, but by analysing
+what would change. Optional comparison of PDF output quality across browsers may be
+mentioned if measured during testing.
+
+
+================================================================================
+8. RESOURCE REQUIREMENTS
+================================================================================
+
+Hardware
+--------
+Standard laptop or desktop suitable for Angular development (Angular CLI dev server,
+Chrome or Edge with developer tools). GPU is not required.
+
+Software and APIs
+-----------------
+• Angular CLI (versions compatible with Angular 19) for local development, production build, and
+  unit tests; project dependencies as listed in `package.json`.
+• Git; IDE (e.g. Visual Studio Code).
+• EmailJS account for quote integration testing (keys rotated if exposed).
+• Modern browser; internet access for packages, map embed, and any streaming media URLs
+  referenced in templates.
+
+Data sources
+------------
+Vehicle and option content will be authored as curated static data in the project repository (TypeScript and
+JSON). No paid third-party data feed or database subscription is required; content will be
+illustrative and not official manufacturer pricing or inventory.
+
+Infrastructure / Hosting
+-------------------------
+The project repository will include optional scripts in `package.json` for GitHub Pages static hosting (`build:github` /
+`deploy:github`) so a public live-demo URL remains available if required by the committee. A remote Git repository (e.g. GitHub) is optional. No mandatory cloud database is planned.
+
+
+================================================================================
+9. REFERENCES (Harvard style; alphabetical; one paragraph each)
+================================================================================
+
+Angular Team (2026) Angular documentation [Online]. Available at: https://angular.dev/
+(Accessed: 11 May 2026).
+
+Crockford, D. (2008) JavaScript: The Good Parts. Sebastopol, CA: O'Reilly Media.
+
+Ecma International (2017) Standard ECMA-404: The JSON Data Interchange Syntax [Online].
+Available at:
+https://www.ecma-international.org/publications-and-standards/standards/ecma-404/
+(Accessed: 11 May 2026).
+
+EmailJS (2026) EmailJS documentation [Online]. Available at: https://www.emailjs.com/docs/
+(Accessed: 11 May 2026).
+
+Google (2026) Google Maps Embed API overview [Online]. Available at:
+https://developers.google.com/maps/documentation/embed/get-started (Accessed: 11 May 2026).
+
+Microsoft (2026) TypeScript documentation [Online]. Available at:
+https://www.typescriptlang.org/docs/ (Accessed: 11 May 2026).
+
+Mozilla (2026) Angular [Online]. MDN Web Docs. Available at:
+https://developer.mozilla.org/en-US/docs/Glossary/Angular (Accessed: 11 May 2026).
+
+Parallax (2026) jsPDF [Online]. GitHub repository. Available at:
+https://github.com/parallax/jsPDF (Accessed: 11 May 2026).
+
+ReactiveX (2026) RxJS documentation [Online]. Available at: https://rxjs.dev/
+(Accessed: 11 May 2026).
+
+von Hertzen, N. (2026) html2canvas [Online]. Available at: https://html2canvas.hertzen.com/
+(Accessed: 11 May 2026).
+
+
+================================================================================
+END OF DOCUMENT
+================================================================================
