@@ -28,11 +28,12 @@
   class="main-image"
   (mousedown)="onDragStart($event)"
   (mousemove)="onDragging($event)"
-  (mouseup)="onDragEnd($event)"
-  (mouseleave)="onDragEnd($event)"
+  (mouseup)="onDragEnd()"
+  (mouseleave)="onDragEnd()"
   (touchstart)="onDragStart($event)"
   (touchmove)="onDragging($event)"
-  (touchend)="onDragEnd($event)"
+  (touchend)="onDragEnd()"
+  (touchcancel)="onDragEnd()"
   (dragstart)="preventDrag($event)"
 >
   <!-- SLIDES -->
@@ -382,7 +383,7 @@
     <h2 class="modal-title">{{ activeTech?.name }}</h2>
     <p class="modal-description">{{ activeTech?.description }}</p>
 
-    <!-- Footer Buttons -->
+    <!-- Buttons -->
     <div class="modal-footer">
       <button class="btn-black" (click)="toggleTechnology(activeTech)">
         {{ selectedTechnology.has(activeTech?.name) ? 'Remove from selection' : 'Add to selection' }}
@@ -401,22 +402,103 @@
   <img src="assets/porsche-black-text.png" class="quote-modal-image" />
   <h2>Request a Quote</h2>
 
-  <input type="text" placeholder="First Name*" [(ngModel)]="quoteForm.name">
-  <input type="text" placeholder="Last Name*" [(ngModel)]="quoteForm.surname">
- <input type="text" placeholder="Phone*" [(ngModel)]="quoteForm.mobile">
+  <div class="quote-field">
+    <input
+      type="text"
+      placeholder="First Name*"
+      autocomplete="given-name"
+      maxlength="50"
+      [(ngModel)]="quoteForm.name"
+      [class.input-invalid]="quoteErrors.name"
+      [attr.aria-invalid]="!!quoteErrors.name"
+      aria-describedby="quote-name-error"
+      (input)="clearQuoteFieldError('name')"
+      (blur)="validateQuoteField('name')">
+    <small *ngIf="quoteErrors.name" id="quote-name-error" class="field-error">{{ quoteErrors.name }}</small>
+  </div>
 
+  <div class="quote-field">
+    <input
+      type="text"
+      placeholder="Last Name*"
+      autocomplete="family-name"
+      maxlength="50"
+      [(ngModel)]="quoteForm.surname"
+      [class.input-invalid]="quoteErrors.surname"
+      [attr.aria-invalid]="!!quoteErrors.surname"
+      aria-describedby="quote-surname-error"
+      (input)="clearQuoteFieldError('surname')"
+      (blur)="validateQuoteField('surname')">
+    <small *ngIf="quoteErrors.surname" id="quote-surname-error" class="field-error">{{ quoteErrors.surname }}</small>
+  </div>
 
-  <input type="email" placeholder="Email" [(ngModel)]="quoteForm.email">
-  <input type="text" placeholder="City" [(ngModel)]="quoteForm.city">
+  <div class="quote-field">
+    <input
+      type="tel"
+      placeholder="Phone*"
+      autocomplete="tel"
+      inputmode="tel"
+      maxlength="25"
+      [(ngModel)]="quoteForm.mobile"
+      [class.input-invalid]="quoteErrors.mobile"
+      [attr.aria-invalid]="!!quoteErrors.mobile"
+      aria-describedby="quote-mobile-error"
+      (input)="clearQuoteFieldError('mobile')"
+      (blur)="validateQuoteField('mobile')">
+    <small *ngIf="quoteErrors.mobile" id="quote-mobile-error" class="field-error">{{ quoteErrors.mobile }}</small>
+  </div>
+
+  <div class="quote-field">
+    <input
+      type="email"
+      placeholder="Email*"
+      autocomplete="email"
+      maxlength="254"
+      [(ngModel)]="quoteForm.email"
+      [class.input-invalid]="quoteErrors.email"
+      [attr.aria-invalid]="!!quoteErrors.email"
+      aria-describedby="quote-email-error"
+      (input)="clearQuoteFieldError('email')"
+      (blur)="validateQuoteField('email')">
+    <small *ngIf="quoteErrors.email" id="quote-email-error" class="field-error">{{ quoteErrors.email }}</small>
+  </div>
+
+  <div class="quote-field">
+    <input
+      type="text"
+      placeholder="City*"
+      autocomplete="address-level2"
+      maxlength="60"
+      [(ngModel)]="quoteForm.city"
+      [class.input-invalid]="quoteErrors.city"
+      [attr.aria-invalid]="!!quoteErrors.city"
+      aria-describedby="quote-city-error"
+      (input)="clearQuoteFieldError('city')"
+      (blur)="validateQuoteField('city')">
+    <small *ngIf="quoteErrors.city" id="quote-city-error" class="field-error">{{ quoteErrors.city }}</small>
+  </div>
+
+  <div
+    *ngIf="quoteMessage"
+    class="quote-message"
+    [class.quote-message-success]="quoteMessageType === 'success'"
+    [class.quote-message-error]="quoteMessageType === 'error'"
+    role="status"
+    aria-live="polite">
+    {{ quoteMessage }}
+  </div>
 
   <div class="modal-buttons">
     <button 
+      type="button"
       class="btn-black" 
       (click)="submitQuote()" 
-      [disabled]="sending">
-      {{ sending ? 'Sending...' : 'Submit' }}
+      [disabled]="sending || quoteMessageType === 'success'">
+      {{ sending ? 'Sending...' : quoteMessageType === 'success' ? 'Sent' : 'Submit' }}
     </button>
-    <button class="btn-white" (click)="closeQuoteModal()">Cancel</button>
+    <button type="button" class="btn-white" (click)="closeQuoteModal()">
+      {{ quoteMessageType === 'success' ? 'Close' : 'Cancel' }}
+    </button>
   </div>
 </div>
 

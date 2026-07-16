@@ -40,16 +40,12 @@ export class CompareComponent implements OnInit {
     });
   }
 
-  // =========================
-  // SCROLL CONTROL (FIXED)
-  // =========================
+
   private setBodyScroll(lock: boolean) {
     document.body.style.overflow = lock ? 'hidden' : 'auto';
   }
 
-  // =========================
-  // PICKER CONTROL
-  // =========================
+
   openPicker(slot: 1 | 2) {
     this.activeSlot = slot;
     this.pickerOpen = true;

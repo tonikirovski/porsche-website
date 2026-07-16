@@ -5,15 +5,15 @@ export interface Variant {
   price: string;
   description: string;
   imageUrl: string;
-  mainImage?: string;       // main hero image for variant page
-  frontBackImage?: string;  // performance section
-  technicalImage?: string;  // technical panel
+  mainImage?: string;       
+  frontBackImage?: string;  
+  technicalImage?: string;  
   fuel?: string;
   gear?: string;
   route?: string;
   
   technical?: {
-    acceleration?: number; // 0-100 km/h
+    acceleration?: number; 
     powerPs?: number;
     powerKw?: number;
     topSpeed?: number;
@@ -32,14 +32,14 @@ export const VARIANTS: Variant[] = [
     price: '146,949,00',
     description: 'A timeless classic sports car.',
     imageUrl: 'assets/p911img/carrera.jpg',
-    mainImage: 'assets/p911img/carrera-main.jpg',      // hero on variant page
-    frontBackImage: 'assets/p911img/carrera-front.jpg', // performance section
+    mainImage: 'assets/p911img/carrera-main.jpg',      
+    frontBackImage: 'assets/p911img/carrera-front.jpg', 
     technicalImage: 'assets/p911img/911-stech.png',
     fuel: 'Petrol',
     gear: 'Automatic',
     route: '/models/p911/carrera',
     technical: {
-      acceleration: 4.1, // 0-100 km/h
+      acceleration: 4.1, 
       powerPs: 394,
       powerKw: 290,
       topSpeed: 294,

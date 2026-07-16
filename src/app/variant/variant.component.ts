@@ -92,25 +92,15 @@ ngOnInit() {
 
     this.variant = foundVariant;
 
-    // 🔹 FIXED: Exact match on model, only include variants with a name
-this.modelVariants = VARIANTS.filter(v =>
+    
+  this.modelVariants = VARIANTS.filter(v =>
   v.route?.toLowerCase().startsWith(`/models/${this.currentModel.toLowerCase()}/`)
-);
-
-    console.log('modelVariants:', this.modelVariants); // Should now be correct
+); 
 
     this.sections = this.variant.technical?.sections || [];
     this.resetStats();
   });
 }
-
-  resetStats() {
-    this.acceleration = 0;
-    this.powerKw = 0;
-    this.powerPs = 0;
-    this.topSpeed = 0;
-    this.animated = false;
-  }
 
 navigateToVariant(variantName: string) {
   if (this.variant?.name === variantName) return;
@@ -144,7 +134,15 @@ configureCar() {
     });
   }
 
-  // ================= STATS SCROLL ANIMATION =================
+    resetStats() {
+    this.acceleration = 0;
+    this.powerKw = 0;
+    this.powerPs = 0;
+    this.topSpeed = 0;
+    this.animated = false;
+  }
+
+  //  STATS SCROLL ANIMATION
 
   @HostListener('window:scroll', [])
   onScroll(): void {

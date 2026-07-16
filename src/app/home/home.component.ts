@@ -18,9 +18,9 @@ export class HomeComponent implements AfterViewInit {
   showVideo = false;
   posterShown = true;
 
-  // =========================
+ 
   // SLIDER STATE
-  // =========================
+ 
   slides = [
     '911',
     '718',
@@ -42,9 +42,9 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(private router: Router) {}
 
-  // =========================
+  
   // INTRO VIDEO
-  // =========================
+  
   ngAfterViewInit() {
     const videoEl = this.video.nativeElement;
 
@@ -110,16 +110,15 @@ export class HomeComponent implements AfterViewInit {
     track.style.backfaceVisibility = 'hidden';
   }
 
-  // =========================
+ 
   // FIXED WIDTH (IMPORTANT FOR iOS)
-  // =========================
+ 
   private getWidth(): number {
     return this.sliderContainer.nativeElement.getBoundingClientRect().width;
   }
 
-  // =========================
   // TRANSFORM UPDATE
-  // =========================
+
   updateTransform(animate: boolean = true) {
     if (!this.sliderTrack) return;
 
@@ -131,9 +130,9 @@ export class HomeComponent implements AfterViewInit {
     this.transformValue = `translate3d(${x}px, 0, 0)`;
   }
 
-  // =========================
+  
   // TOUCH EVENTS (iOS FIXED)
-  // =========================
+ 
   onTouchStart(event: TouchEvent) {
     this.startX = event.touches[0].clientX;
     this.isDragging = true;
@@ -175,9 +174,9 @@ export class HomeComponent implements AfterViewInit {
     this.updateTransform(true);
   }
 
-  // =========================
+  
   // NAVIGATION
-  // =========================
+ 
   goCarrera() {
     this.router.navigateByUrl('/models/p911/carrera');
   }
@@ -198,9 +197,9 @@ export class HomeComponent implements AfterViewInit {
     this.router.navigate(['/models'], { queryParams: { model } });
   }
 
-  // =========================
+
   // HOVER VIDEOS
-  // =========================
+
   playVideo(event: any) {
     const video: HTMLVideoElement =
       event.currentTarget.querySelector('.hv-video');
@@ -242,9 +241,9 @@ export class HomeComponent implements AfterViewInit {
     video.currentTime = 0;
   }
 
-  // =========================
+
   // DOT NAVIGATION
-  // =========================
+
   goToSlide(index: number) {
     this.currentIndex = index;
     this.updateTransform(true);

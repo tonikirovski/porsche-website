@@ -23,6 +23,8 @@ import melectricConfig from '../../../shared/macan/m-electric-config.json';
 import cayenneConfig from '../../../shared/cayenne/cayenne-conifg.json';
 import cayenneCoupeConfig from '../../../shared/cayenne/coupe-config.json';
 
+type QuoteField = 'name' | 'surname' | 'mobile' | 'email' | 'city';
+
 
 
 
@@ -41,10 +43,6 @@ const VARIANT_JSON_MAP: Record<string, any> = {
   'melectric': melectricConfig,
   'cayenne': cayenneConfig,
   'coupe': cayenneCoupeConfig,
-
-  // future variants:
-  // 'gt3': gt3Config,
-  // 'cabriolet': cabrioletConfig
 };
 @Component({
   selector: 'app-car-config',
@@ -82,8 +80,11 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
   dragStartX = 0;
   dragOffset = 0;
   isDragging = false;
+  isSlideAnimating = false;
   hasMoved = false;
   containerWidth = 1;
+  private readonly dragThreshold = 50;
+  private readonly slideAnimationMs = 350;
 
   defaultImages: string[] = [];
   images: string[] = [];
@@ -95,49 +96,62 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
   get dragOffsetPercent(): number { return this.containerWidth ? (this.dragOffset / this.containerWidth) * 100 : 0; }
 
   onDragStart(event: MouseEvent | TouchEvent) {
+    if (this.isSlideAnimating || this.images.length < 2) return;
+
     this.isDragging = true;
     this.hasMoved = false;
     this.dragStartX = this.getX(event);
+    this.dragOffset = 0;
     const container = (event.target as HTMLElement).closest('.main-image') as HTMLElement;
-    this.containerWidth = container?.offsetWidth ?? 1;
+    this.containerWidth = container?.getBoundingClientRect().width || 1;
   }
 
   onDragging(event: MouseEvent | TouchEvent) {
     if (!this.isDragging) return;
-    if (event.cancelable) event.preventDefault();
+
     const currentX = this.getX(event);
     this.dragOffset = currentX - this.dragStartX;
     if (Math.abs(this.dragOffset) > 10) this.hasMoved = true;
   }
 
-  onDragEnd(event: MouseEvent | TouchEvent) {
+  onDragEnd() {
     if (!this.isDragging) return;
-    // Use 20% of the container width as the threshold for a natural "swipe" feel
-    const dragThreshold = this.containerWidth * 0.2; 
+
     const currentIndex = this.currentIndex;
     let newIndex = currentIndex;
+    let targetOffset = 0;
 
-    if (Math.abs(this.dragOffset) > dragThreshold) {
+    if (Math.abs(this.dragOffset) > this.dragThreshold) {
       if (this.dragOffset > 0) {
         newIndex = (currentIndex - 1 + this.images.length) % this.images.length;
+        targetOffset = this.containerWidth;
       } else {
         newIndex = (currentIndex + 1) % this.images.length;
+        targetOffset = -this.containerWidth;
       }
     }
 
     this.isDragging = false;
-    this.dragOffset = 0;
-    this.selectedImage = this.images[newIndex];
-    this.hasMoved = false;
+    this.isSlideAnimating = true;
+    this.dragOffset = targetOffset;
+
+    window.setTimeout(() => {
+      this.selectedImage = this.images[newIndex];
+      this.isSlideAnimating = false;
+      this.dragOffset = 0;
+      this.hasMoved = false;
+    }, this.slideAnimationMs);
   }
 
   getX(event: MouseEvent | TouchEvent): number { return event instanceof MouseEvent ? event.clientX : (event as TouchEvent).touches[0].clientX; }
   getSlideTransform(relativePosition: -1 | 0 | 1): string {
     const dragOffsetPercent = (this.dragOffset / this.containerWidth) * 100;
     const baseOffset = relativePosition * 100;
-    return `translateX(${baseOffset + dragOffsetPercent}%)`;
+    return `translate3d(${baseOffset + dragOffsetPercent}%, 0, 0)`;
   }
-  getSlideTransition(): string { return this.isDragging ? 'none' : 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; }
+  getSlideTransition(): string {
+    return this.isSlideAnimating ? 'transform 0.35s ease' : 'none';
+  }
   preventDrag(event: DragEvent) { event.preventDefault(); }
   selectImage(img: string) { this.selectedImage = img; }
 
@@ -182,17 +196,26 @@ export class CarConfigComponent implements OnInit, AfterViewInit {
 
   showQuoteModal = false;
   sending = false;
+  quoteMessage = '';
+  quoteMessageType: 'success' | 'error' | '' = '';
   quoteForm = { name: '', surname: '', mobile: '', email: '', city: '' };
+  quoteErrors: Record<QuoteField, string> = {
+    name: '',
+    surname: '',
+    mobile: '',
+    email: '',
+    city: ''
+  };
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit() {
 
-  if (this.variantJson) return; // already passed as @Input()
+  if (this.variantJson) return; 
 
   this.route.paramMap.subscribe(params => {
     const rawSlug = params.get('variant')?.toLowerCase() || '';
-    const variantName = rawSlug.replace(/-/g, ''); // remove dashes
+    const variantName = rawSlug.replace(/-/g, ''); 
 
     
 
@@ -285,8 +308,6 @@ setRoof(state: 'roofClosed' | 'roofOpen') {
   if (!this.isCabriolet || this.roofState === state) return;
 
   this.roofState = state;
-
-  // Apply images with new roof state
   this.applyComboImages(this.selectedColorName, this.selectedWheelName);
   this.applyComboImagesInteriorSeats(this.selectedInteriorName, this.selectedSeatName);
 }
@@ -427,15 +448,6 @@ private applyComboImagesInteriorSeats(interiorName: string, seatName: string) {
     this.images[Math.max(0, Math.min(currentIndex, this.images.length - 1))];
 }
 
-
-
- // --- Technology ---
-selectTechnology(option: any) {
-// Only open modal, don’t toggle selection
-this.openTechModal(option);
-}
-
-
   // Add tech
   // --- PRICE ---
   updatePrice(change: number) {
@@ -465,6 +477,11 @@ this.openTechModal(option);
   }
 
   // --- TECHNOLOGY & ACCESSORIES ---
+   // --- Technology ---
+   selectTechnology(option: any) {
+   this.openTechModal(option);
+  }
+
   openTechModal(tech: any) {
     this.activeTech = tech;
     this.showTechModal = true;
@@ -687,6 +704,9 @@ getAccessoryByName(name: string) {
 
   // --- QUOTE MODAL ---
   openQuoteModal() {
+    this.quoteMessage = '';
+    this.quoteMessageType = '';
+    this.clearQuoteErrors();
     this.showQuoteModal = true;
     document.body.classList.add('modal-open');
     document.body.style.overflow = 'hidden';
@@ -694,30 +714,89 @@ getAccessoryByName(name: string) {
 
   closeQuoteModal() {
     this.showQuoteModal = false;
+    this.quoteMessage = '';
+    this.quoteMessageType = '';
+    this.clearQuoteErrors();
     document.body.classList.remove('modal-open');
     document.body.style.overflow = 'auto';
   }
 
+  validateQuoteField(field: QuoteField): boolean {
+    const value = this.quoteForm[field].trim();
+    let error = '';
+
+    if (!value) {
+      error = 'This field is required.';
+    } else if (field === 'name' || field === 'surname') {
+      const validName = /^[\p{L} '-]+$/u.test(value);
+
+      if (value.length < 2 || value.length > 50) {
+        error = 'Enter between 2 and 50 characters.';
+      } else if (!validName) {
+        error = 'Use letters, spaces, hyphens, or apostrophes only.';
+      }
+    } else if (field === 'email') {
+      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!validEmail) error = 'Enter a valid email address.';
+    } else if (field === 'mobile') {
+      const validPhone = /^\+?[0-9 ()-]+$/.test(value);
+      const digits = value.replace(/\D/g, '');
+
+      if (!validPhone || digits.length < 7 || digits.length > 15) {
+        error = 'Enter a valid phone number containing 7 to 15 digits.';
+      }
+    } else if (field === 'city') {
+      const validCity = /^[\p{L} .'-]+$/u.test(value);
+
+      if (value.length < 2 || value.length > 60) {
+        error = 'Enter between 2 and 60 characters.';
+      } else if (!validCity) {
+        error = 'Enter a valid city name.';
+      }
+    }
+
+    this.quoteErrors[field] = error;
+    return !error;
+  }
+
+  clearQuoteFieldError(field: QuoteField) {
+    this.quoteErrors[field] = '';
+
+    if (this.quoteMessageType === 'error') {
+      this.quoteMessage = '';
+      this.quoteMessageType = '';
+    }
+  }
+
+  private clearQuoteErrors() {
+    (Object.keys(this.quoteErrors) as QuoteField[]).forEach(field => {
+      this.quoteErrors[field] = '';
+    });
+  }
+
   private isFormValid(): boolean {
-    return this.quoteForm.name.trim() !== '' &&
-           this.quoteForm.surname.trim() !== '' &&
-           this.quoteForm.email.includes('@') &&
-           this.quoteForm.mobile.trim() !== '' &&
-           this.quoteForm.city.trim() !== '';
+    const fields: QuoteField[] = ['name', 'surname', 'mobile', 'email', 'city'];
+    return fields.map(field => this.validateQuoteField(field)).every(Boolean);
   }
 
   submitQuote() {
-    if (this.sending || !this.isFormValid()) {
-      alert('Please fill in all required fields.');
+    if (this.sending) return;
+
+    if (!this.isFormValid()) {
+      this.quoteMessage = 'Please correct the highlighted fields.';
+      this.quoteMessageType = 'error';
       return;
     }
 
+    this.quoteMessage = '';
+    this.quoteMessageType = '';
+
     const payload = {
-      name: this.quoteForm.name,
-      surname: this.quoteForm.surname,
-      email: this.quoteForm.email,
-      mobile: this.quoteForm.mobile,
-      city: this.quoteForm.city,
+      name: this.quoteForm.name.trim(),
+      surname: this.quoteForm.surname.trim(),
+      email: this.quoteForm.email.trim(),
+      mobile: this.quoteForm.mobile.trim(),
+      city: this.quoteForm.city.trim(),
       model: this.variantJson.model,
       price: `€${this.totalPrice.toLocaleString()}`,
       color: this.selectedColorName,
@@ -725,21 +804,21 @@ getAccessoryByName(name: string) {
       interior: this.selectedInteriorName,
       seats: this.selectedSeatName,
       technology: Array.from(this.selectedTechnology).join(', ') || '—',
-      accessories: Array.from(this.selectedAccessories).join(', ') || '—',
-      reference: 'P-' + Date.now()
+      accessories: Array.from(this.selectedAccessories).join(', ') || '—'
     };
 
     this.sending = true;
     emailjs.send('service_emf13af', 'template_g0hl752', payload, 'CgqlnJDNlBgtxlC5j')
       .then(() => {
         this.sending = false;
-        alert('Quote request sent successfully!');
-        this.closeQuoteModal();
+        this.quoteMessage = 'Your quote request was sent successfully.';
+        this.quoteMessageType = 'success';
       })
       .catch(err => {
         this.sending = false;
         console.error('EmailJS error', err);
-        alert('Failed to send quote request.');
+        this.quoteMessage = 'The quote request could not be sent. Please try again.';
+        this.quoteMessageType = 'error';
       });
   }
 
