@@ -1,0 +1,60 @@
+# Deployment Instructions for GitHub Pages
+
+This guide explains how to deploy your Angular project to GitHub Pages using the docs folder.
+
+## 1. Configure Angular Build Output
+- Edit `angular.json`:
+  - Set `outputPath` to `docs` under the build options.
+
+## 2. Build the Project
+- Run:
+  ```
+  ng build --configuration production
+  ```
+- The build output will be placed in the `docs` folder.
+
+## 3. Move Build Files to Docs Root
+- If Angular outputs files to a subfolder (like `docs/browser`), move all files to the root of `docs`:
+  - On Windows PowerShell:
+    ```
+    Move-Item -Path 'docs/browser/*' -Destination 'docs/' -Force
+    Remove-Item -Path 'docs/browser' -Recurse -Force
+    ```
+
+## 4. Update Base Href
+- Edit `docs/index.html`:
+  - Change `<base href="/">` to `<base href="/porsche-website-deployCheck/">` (replace with your repo name).
+
+## 5. Commit and Push Changes
+- Add, commit, and push your changes:
+  ```
+  git add .
+  git commit -m "Deploy to GitHub Pages"
+  git push origin main
+  ```
+
+## 6. Configure GitHub Pages
+- Go to your repository settings on GitHub.
+- Under "Pages", set the source to the `docs` folder on the `main` branch.
+
+## 7. Verify Deployment
+- Visit `https://<your-username>.github.io/<your-repo>/`.
+- The site should load with all assets and styles.
+
+## Troubleshooting
+- Ensure all build files (including `index.html` and stylesheets) are in the root of `docs`.
+- Make sure the base href matches your repository name.
+- Clear browser cache if assets do not load.
+
+---
+
+**This project is ready for GitHub Pages deployment following these steps.**
+## 8. Set GitHub Pages Source to `main/docs`
+- In your repository, go to **Settings** > **Pages**.
+- Under **Source**, select the `main` branch and `/docs` folder.
+- Click **Save**.
+
+## 9. Automate Deployment with GitHub Actions
+- Automaticly will build and deploy 
+
+# DONT FROGET TO COMMIT BEFORE PUSH to origin main 
